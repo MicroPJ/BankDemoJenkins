@@ -10,18 +10,18 @@ node {
     stage('Provision VSAM') {
             steps {
                 dir("scripts") {
-                    
-                script {
-                    if (env.TASK == "ProvisionVSAM") {
-                       bat 'python MF_Provision_Region.py vsam'
-                    } else {
-                       echo 'NOT ProvisionVSAM'
+                    script {
+                        if (env.TASK == "ProvisionVSAM") {
+                           bat 'python MF_Provision_Region.py vsam'
+                        } else {
+                           echo 'NOT ProvisionVSAM'
+                        }
+
+                        //bat 'python MF_Provision_Region.py vsam'
                     }
-                    
-                    //bat 'python MF_Provision_Region.py vsam'
-                }
+                 }
             }
-   }
+    }
     
     //stage('Provision VSAM') {
     //    /* This builds the actual image; synonymous to
