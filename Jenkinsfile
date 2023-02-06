@@ -17,7 +17,7 @@ node {
                    echo " "
 		   echo "ESCWA: http://localhost:10086"
 		   echo " "
-		   cleanWs()
+		   //cleanWs()
                 }
 		    
                 if (env.TASK == "Remove BANKVSAM") {
@@ -44,7 +44,7 @@ node {
 			
                     echo "-- finished"
                     echo " "
-		    cleanWs()                   
+		    //cleanWs()                   
                 }
 
             }
