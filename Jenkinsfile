@@ -11,7 +11,6 @@ node {
         dir("scripts") {
             script {
                 if (env.TASK == "Provision BANKVSAM") {
-		   cleanWs()
                    echo "-- starting region BANKVSAM"
 		   echo " "
                    bat 'python MF_Provision_Region.py vsam'
