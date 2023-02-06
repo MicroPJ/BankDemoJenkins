@@ -25,7 +25,7 @@ node {
                 }
 		    
                 if (env.TASK == "Provision BANKPOSTGRES") {
-		   dir ('BANKVSAM') {
+		   dir ('BANKMFDB') {
 		       deleteDir()
 		   }
 		   echo "-- starting region BANKVSAM"
@@ -64,7 +64,33 @@ node {
                     echo " "
 		    //cleanWs()                   
                 }
-
+		    
+                if (env.TASK == "Remove BANKPOSTGRES") {
+                    echo "-- stopping region"
+                    echo " "
+		    powershell '''
+                    (Get-Content -path MF_Region_Stop.py -Raw) -replace 'BANKDEMO','BANKMFDB' | Set-Content -Path MF_Region_Stop.py
+                    '''
+		    bat 'python MF_Region_Stop.py'
+		    powershell '''
+                    (Get-Content -path MF_Region_Stop.py -Raw) -replace 'BANKVSAM','BANKDEMO' | Set-Content -Path MF_Region_Stop.py
+		    '''
+                    echo "-- removing region"
+                    echo " "
+		    
+	            powershell '''
+                    (Get-Content -path MF_Delete_Region.py -Raw) -replace 'BANKDEMO','BANKMFDB' | Set-Content -Path MF_Delete_Region.py
+                    '''
+		    bat 'python MF_Delete_Region.py'
+			
+                    powershell '''
+		    (Get-Content -path MF_Delete_Region.py -Raw) -replace 'BANKVSAM','BANKDEMO' | Set-Content -Path MF_Delete_Region.py
+                    '''
+			
+                    echo "-- finished"
+                    echo " "
+		    //cleanWs()                   
+                }
             }
          }
     }
