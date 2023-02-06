@@ -10,7 +10,7 @@ node {
     stage('Provision VSAM') {
         dir("scripts") {
             script {
-                if (TASK == "ProvisionVSAM") {
+                if (env.TASK == "provisionVSAM") {
                    bat 'python MF_Provision_Region.py vsam'
                 } else {
                    echo 'NOT ProvisionVSAM'
