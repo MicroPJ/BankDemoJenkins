@@ -10,7 +10,7 @@ node {
     stage('Provision VSAM') {
         dir("scripts") {
             script {
-                if (env.TASK == "provisionVSAM") {
+                if (env.TASK == "Provision BANKVSAM") {
                    echo "-- starting region BANKVSAM"
 		   echo " "
                    bat 'python MF_Provision_Region.py vsam'
@@ -21,7 +21,7 @@ node {
 		   cleanWs()
                 }
 		    
-                if (env.TASK == "removeVSAM") {
+                if (env.TASK == "Remove BANKVSAM") {
                     echo "-- stopping region"
                     echo " "
 		    powershell '''
