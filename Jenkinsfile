@@ -8,10 +8,23 @@ node {
     }
 
     stage('Provision VSAM') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-        dir("scripts") {
-            bat 'python MF_Provision_Region.py vsam'
-        }
-    }
+            when {
+                expression { 
+                   return params.TASK == 'provisionVSAM'
+                }
+            }
+            steps {
+                dir("scripts") {
+                    bat 'python MF_Provision_Region.py vsam'
+                }
+            }
+   }
+    
+    #stage('Provision VSAM') {
+    #    /* This builds the actual image; synonymous to
+    #     * docker build on the command line */
+    #    dir("scripts") {
+    #        bat 'python MF_Provision_Region.py vsam'
+    #    }
+    #}
 }
