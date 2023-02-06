@@ -10,6 +10,9 @@ node {
         dir("scripts") {
             script {
                 if (env.TASK == "Provision BANKVSAM") {
+		   powershell '''
+		   rm BANKVSAM -r -force
+		   '''
                    echo "-- starting region BANKVSAM"
 		   echo " "
                    bat 'python MF_Provision_Region.py vsam'
