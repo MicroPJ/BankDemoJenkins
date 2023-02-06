@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
         dir("scripts") {
-            python MF_Provision_Region.py vsam
+            bat 'python MF_Provision_Region.py vsam'
         }
     }
 }
