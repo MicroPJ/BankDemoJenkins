@@ -54,11 +54,6 @@ node {
          }
     }
 
-    post { 
-        always { 
-            cleanWs()
-        }
-    }
     //stage('Provision VSAM') {
     //    /* This builds the actual image; synonymous to
     //     * docker build on the command line */
