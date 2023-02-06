@@ -10,8 +10,7 @@ node {
     stage('Provision VSAM') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
-        dir("") {
-            cd scripts
+        dir("scripts") {
             python MF_Provision_Region.py vsam
         }
     }
