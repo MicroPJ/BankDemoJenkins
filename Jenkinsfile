@@ -18,7 +18,7 @@ node {
                    echo " "
 		   echo "ESCWA: http://localhost:10086"
 		   echo " "
-		   deleteDir()
+		   cleanWs()
                 }
 		    
                 if (env.TASK == "removeVSAM") {
@@ -45,7 +45,7 @@ node {
 			
                     echo "-- finished"
                     echo " "
-		    deleteDir()                    
+		    cleanWs()                   
                 }
 
                 //bat 'python MF_Provision_Region.py vsam'
