@@ -1,16 +1,17 @@
 node {
 
-    stage('Main Process') {
+    stage('Clone repository') {
+        /* Let's make sure we have the repository cloned to our workspace */
+	deleteDir()
+        git branch: "main",
+        url: 'https://github.com/MicroFocus/BankDemo.git'
+    }
+
+    stage('Provision VSAM') {
         dir("scripts") {
             script {
                 if (env.TASK == "Provision BANKVSAM") {
-		   echo "-- Clone BANKDEMO"
-		   echo " "
-		   deleteDir()
-                   git branch: "main",
-                   url: 'https://github.com/MicroFocus/BankDemo.git'
-                   
-		   echo "-- starting region BANKVSAM"
+                   echo "-- starting region BANKVSAM"
 		   echo " "
                    bat 'python MF_Provision_Region.py vsam'
                    echo "-- finished"
@@ -23,7 +24,6 @@ node {
                 if (env.TASK == "Remove BANKVSAM") {
                     echo "-- stopping region"
                     echo " "
-		    cd env.WORKSPACE
 		    powershell '''
                     (Get-Content -path MF_Region_Stop.py -Raw) -replace 'BANKDEMO','BANKVSAM' | Set-Content -Path MF_Region_Stop.py
                     '''
