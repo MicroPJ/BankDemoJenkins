@@ -24,6 +24,20 @@ node {
 		   //cleanWs()
                 }
 		    
+                if (env.TASK == "Provision BANKPOSTGRES") {
+		   dir ('BANKVSAM') {
+		       deleteDir()
+		   }
+		   echo "-- starting region BANKVSAM"
+		   echo " "
+                   bat 'python MF_Provision_Region.py vsam_postgres'
+                   echo "-- finished"
+                   echo " "
+		   echo "ESCWA: http://localhost:10086"
+		   echo " "
+		   //cleanWs()
+                }
+		    
                 if (env.TASK == "Remove BANKVSAM") {
                     echo "-- stopping region"
                     echo " "
