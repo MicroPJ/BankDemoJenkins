@@ -24,7 +24,7 @@ node {
 		   //cleanWs()
                 }
 		    
-                if (env.TASK == "Provision BANKPOSTGRES") {
+                if (env.TASK == "Provision VSAM BANKPOSTGRES") {
 		   dir ('BANKMFDB') {
 		       deleteDir()
 		   }
@@ -65,7 +65,7 @@ node {
 		    //cleanWs()                   
                 }
 		    
-                if (env.TASK == "Remove BANKPOSTGRES") {
+                if (env.TASK == "Remove VSAM BANKPOSTGRES") {
                     echo "-- stopping region"
                     echo " "
 		    powershell '''
