@@ -11,7 +11,7 @@ node {
             script {
                 if (env.TASK == "Provision BANKVSAM") {
 		   powershell '''
-		   rm BANKVSAM/ -r -force
+		   rm ${WORKSPACE}\BANKVSAM -r -force
 		   '''
                    echo "-- starting region BANKVSAM"
 		   echo " "
