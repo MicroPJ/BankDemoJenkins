@@ -16,11 +16,11 @@ node {
                    bat 'python MF_Provision_Region.py vsam'
                    echo "-- finished"
                    echo " "
-				   echo "ESCWA: http://localhost:10086"
-				   echo "3270: localhost:$3270_Port"
-				   echo " "
-
+		   echo "ESCWA: http://localhost:10086"
+		   echo "3270: localhost:$3270_Port"
+		   echo " "
                 }
+		    
                 if (env.TASK == "removeVSAM") {
                     echo "-- stopping region"
                     echo " "
