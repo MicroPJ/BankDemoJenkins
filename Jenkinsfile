@@ -3,7 +3,8 @@ node (Built-In){
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
 
-        checkout scm
+        git branch: "main",
+        url: 'https://github.com/MicroFocus/BankDemo.git'
     }
 
     stage('Provision VSAM') {
