@@ -24,11 +24,11 @@ node {
 		   //cleanWs()
                 }
 		    
-                if (env.TASK == "Provision VSAM BANKPOSTGRES") {
+                if (env.TASK == "Provision BANKMFDB") {
 		   dir ('BANKMFDB') {
 		       deleteDir()
 		   }
-		   echo "-- starting region BANKVSAM"
+		   echo "-- starting region BANKMFDB"
 		   echo " "
                    bat 'python MF_Provision_Region.py vsam_postgres'
                    echo "-- finished"
@@ -65,7 +65,7 @@ node {
 		    //cleanWs()                   
                 }
 		    
-                if (env.TASK == "Remove VSAM BANKPOSTGRES") {
+                if (env.TASK == "Remove BANKMFDB") {
                     echo "-- stopping region"
                     echo " "
 		    powershell '''
