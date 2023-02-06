@@ -11,9 +11,17 @@ node {
         dir("scripts") {
             script {
                 if (env.TASK == "provisionVSAM") {
+                   echo '*--- START ProvisionVSAM'
                    bat 'python MF_Provision_Region.py vsam'
-                } else {
-                   echo 'NOT ProvisionVSAM'
+                   echo '*--- END ProvisionVSAM'
+                }
+                if (env.TASK == "removeVSAM") {
+                   echo '*--- START removeVSAM'
+                   echo '*- STOP removeVSAM'
+                   bat 'python MF_Region_Stop.py'
+                   echo '*- REMOVE removeVSAM'
+                   bat 'python MF_Delete_Region.py'
+                   echo '*--- END removeVSAM'  
                 }
 
                 //bat 'python MF_Provision_Region.py vsam'
