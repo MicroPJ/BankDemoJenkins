@@ -23,7 +23,7 @@ node {
                 if (env.TASK == "Remove BANKVSAM") {
                     echo "-- stopping region"
                     echo " "
-		    cd ${WORKSPACE}
+		    cd env.WORKSPACE
 		    powershell '''
                     (Get-Content -path MF_Region_Stop.py -Raw) -replace 'BANKDEMO','BANKVSAM' | Set-Content -Path MF_Region_Stop.py
                     '''
