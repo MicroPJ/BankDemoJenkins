@@ -17,7 +17,6 @@ node {
                    echo "-- finished"
                    echo " "
 		   echo "ESCWA: http://localhost:10086"
-		   echo "3270: localhost:$3270_Port"
 		   echo " "
                 }
 		    
