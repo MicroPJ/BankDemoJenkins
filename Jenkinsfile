@@ -11,17 +11,35 @@ node {
         dir("scripts") {
             script {
                 if (env.TASK == "provisionVSAM") {
-                   echo '*--- START ProvisionVSAM'
+                   echo "-- starting region BANKVSAM"
+			       echo " "
                    bat 'python MF_Provision_Region.py vsam'
-                   echo '*--- END ProvisionVSAM'
+                   echo "-- finished"
+                   echo " "
+				   echo "ESCWA: http://localhost:10086"
+				   echo "3270: localhost:$3270_Port"
+				   echo " "
+
                 }
                 if (env.TASK == "removeVSAM") {
-                   echo '*--- START removeVSAM'
-                   echo '*- STOP removeVSAM'
-                   bat 'python MF_Region_Stop.py BANKVSAM'
-                   echo '*- REMOVE removeVSAM'
-                   bat 'python MF_Delete_Region.py BANKVSAM'
-                   echo '*--- END removeVSAM'  
+                    echo "-- stopping region"
+                    echo " "
+                    (Get-Content -path MF_Region_Stop.py -Raw) -replace 'BANKDEMO','BANKVSAM' | Set-Content -Path MF_Region_Stop.py
+                    python MF_Region_Stop.py
+                    (Get-Content -path MF_Region_Stop.py -Raw) -replace 'BANKVSAM','BANKDEMO' | Set-Content -Path MF_Region_Stop.py
+
+                    echo "-- removing region"
+                    echo " "
+
+                    (Get-Content -path MF_Delete_Region.py -Raw) -replace 'BANKDEMO','BANKVSAM' | Set-Content -Path MF_Delete_Region.py
+                    python MF_Delete_Region.py
+                    (Get-Content -path MF_Delete_Region.py -Raw) -replace 'BANKVSAM','BANKDEMO' | Set-Content -Path MF_Delete_Region.py
+                    
+                    echo "-- finished"
+                    echo " "
+
+                    
+                    
                 }
 
                 //bat 'python MF_Provision_Region.py vsam'
