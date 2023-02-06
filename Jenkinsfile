@@ -18,9 +18,9 @@ node {
                 if (env.TASK == "removeVSAM") {
                    echo '*--- START removeVSAM'
                    echo '*- STOP removeVSAM'
-                   bat 'python MF_Region_Stop.py'
+                   bat 'python MF_Region_Stop.py BANKDEMO'
                    echo '*- REMOVE removeVSAM'
-                   bat 'python MF_Delete_Region.py'
+                   bat 'python MF_Delete_Region.py BANKDEMO'
                    echo '*--- END removeVSAM'  
                 }
 
