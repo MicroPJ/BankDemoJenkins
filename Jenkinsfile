@@ -11,7 +11,7 @@ node {
             script {
                 if (env.TASK == "Provision BANKVSAM") {
 		   powershell '''
-		   rm env.WORKSPACE\BANKVSAM -r -force
+		   Remove-Item WORKSPACE\BANKVSAM -Force
 		   '''
                    echo "-- starting region BANKVSAM"
 		   echo " "
