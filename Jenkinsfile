@@ -90,7 +90,7 @@ node {
                     '''
 		    bat 'python MF_Region_Stop.py'
 		    powershell '''
-                    (Get-Content -path MF_Region_Stop.py -Raw) -replace 'BANKVSAM','BANKDEMO' | Set-Content -Path MF_Region_Stop.py
+                    (Get-Content -path MF_Region_Stop.py -Raw) -replace 'BANKMFDB','BANKDEMO' | Set-Content -Path MF_Region_Stop.py
 		    '''
                     echo "-- removing region"
                     echo " "
@@ -101,7 +101,34 @@ node {
 		    bat 'python MF_Delete_Region.py'
 			
                     powershell '''
-		    (Get-Content -path MF_Delete_Region.py -Raw) -replace 'BANKVSAM','BANKDEMO' | Set-Content -Path MF_Delete_Region.py
+		    (Get-Content -path MF_Delete_Region.py -Raw) -replace 'BANKMFDB','BANKDEMO' | Set-Content -Path MF_Delete_Region.py
+                    '''
+			
+                    echo "-- finished"
+                    echo " "
+		    //cleanWs()                   
+                }
+		    
+                if (env.TASK == "Remove BANKSQL") {
+                    echo "-- stopping region"
+                    echo " "
+		    powershell '''
+                    (Get-Content -path MF_Region_Stop.py -Raw) -replace 'BANKDEMO','BANKSQL' | Set-Content -Path MF_Region_Stop.py
+                    '''
+		    bat 'python MF_Region_Stop.py'
+		    powershell '''
+                    (Get-Content -path MF_Region_Stop.py -Raw) -replace 'BANKSQL','BANKDEMO' | Set-Content -Path MF_Region_Stop.py
+		    '''
+                    echo "-- removing region"
+                    echo " "
+		    
+	            powershell '''
+                    (Get-Content -path MF_Delete_Region.py -Raw) -replace 'BANKDEMO','BANKSQL' | Set-Content -Path MF_Delete_Region.py
+                    '''
+		    bat 'python MF_Delete_Region.py'
+			
+                    powershell '''
+		    (Get-Content -path MF_Delete_Region.py -Raw) -replace 'BANKSQL','BANKDEMO' | Set-Content -Path MF_Delete_Region.py
                     '''
 			
                     echo "-- finished"
