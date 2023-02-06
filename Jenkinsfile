@@ -2,7 +2,8 @@ node {
 
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
-        git branch: "main",
+        cleanWs()
+	git branch: "main",
         url: 'https://github.com/MicroFocus/BankDemo.git'
     }
 
@@ -10,9 +11,7 @@ node {
         dir("scripts") {
             script {
                 if (env.TASK == "Provision BANKVSAM") {
-		   powershell '''
-		   Remove-Item "WORKSPACE\BANKVSAM" -Force
-		   '''
+		   cleanWs()
                    echo "-- starting region BANKVSAM"
 		   echo " "
                    bat 'python MF_Provision_Region.py vsam'
