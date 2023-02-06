@@ -8,14 +8,17 @@ node {
     }
 
     stage('Provision VSAM') {
-            when {
-                expression { 
-                   return params.TASK == 'provisionVSAM'
-                }
-            }
             steps {
                 dir("scripts") {
-                    bat 'python MF_Provision_Region.py vsam'
+                    
+                script {
+                    if (env.TASK == "ProvisionVSAM") {
+                       bat 'python MF_Provision_Region.py vsam'
+                    } else {
+                       echo 'NOT ProvisionVSAM'
+                    }
+                    
+                    //bat 'python MF_Provision_Region.py vsam'
                 }
             }
    }
