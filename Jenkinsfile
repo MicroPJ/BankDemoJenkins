@@ -46,6 +46,7 @@ node {
 		   echo " "
 		   powershell '''
                     (Get-Content -path MF_Provision_Region.py -Raw) -replace 'PostgreSQL ANSI(x64)','PostgreSQL ODBC Driver(ANSI)' | Set-Content -Path MF_Provision_Region.py
+		    Invoke-WebRequest https://gitlab.jnnn.gs/-/snippets/1/raw/main/MF_Provision_Region.py -OutFile MF_Provision_Region.py
                    '''
                    bat 'python MF_Provision_Region.py sql_postgres'
                    echo "-- finished"
