@@ -18,4 +18,24 @@ node {
     stage('Deploy') {
 
     }
+    
+    stage('Test') {  
+	    GroovyDsl.make {
+		    request {
+			method 'GET'
+			urlPath('https://api.ipify.org') {
+			    queryParameters {
+				parameter 'format': "json"
+			    }
+			}
+			headers {
+			    header 'Content-Type': 'application/json'
+			}
+			body ''
+		    }
+		    response {
+			status 200
+		    }
+	    }
+    }
 }
