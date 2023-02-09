@@ -1,8 +1,8 @@
 node {
 
 
-    stage("Env Variables") {
-	 bat "printenv"
+    stage('Env Variables') {
+	 bat 'set'
     }
     
     stage('Clone repository') {
