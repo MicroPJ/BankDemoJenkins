@@ -21,7 +21,7 @@ node {
 	New-Item -Path Release\\system\\loadlib -ItemType directory
 	New-Item -Path Release\\system\\logs -ItemType directory
 	New-Item -Path Release\\system\\rdef -ItemType directory
-	Copy-Item -Path "executables\\Windows\\x64\core\\*" -Destination "Release\\system\\loadlib"
+	Copy-Item -Path "executables\\Windows\\x64\\core\\*" -Destination "Release\\system\\loadlib"
 	'''
     }
     
