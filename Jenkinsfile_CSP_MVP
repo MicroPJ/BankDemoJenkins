@@ -28,7 +28,7 @@ node {
 	Copy-Item -Path "executables\\Windows\\x64\\core\\*" -Destination "Release-$env:BUILD_TAG\\system\\loadlib"
 	Compress-Archive -Path "Release-$env:BUILD_TAG\\system" -DestinationPath "Release-$env:BUILD_TAG.zip"
 	'''
-	archiveArtifacts artifacts: 'Release-$env:BUILD_TAG.zip', fingerprint: true
+	archiveArtifacts artifacts: 'Release-$BUILD_TAG.zip', fingerprint: true
     }
     
     stage('Deploy') {
