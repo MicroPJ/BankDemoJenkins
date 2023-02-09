@@ -15,12 +15,12 @@ node {
 	//Create System Release folder structure
 	powershell '''
 	New-Item -Path Release -ItemType directory
-	New-Item -Path Release\system -ItemType directory
-	New-Item -Path Release\system\catalog -ItemType directory
-	New-Item -Path Release\system\catalog\data -ItemType directory
-	New-Item -Path Release\system\loadlib -ItemType directory
-	New-Item -Path Release\system\logs -ItemType directory
-	New-Item -Path Release\system\rdef -ItemType directory
+	New-Item -Path Release\\system -ItemType directory
+	New-Item -Path Release\\system\\catalog -ItemType directory
+	New-Item -Path Release\\system\\catalog\\data -ItemType directory
+	New-Item -Path Release\\system\\loadlib -ItemType directory
+	New-Item -Path Release\\system\\logs -ItemType directory
+	New-Item -Path Release\\system\\rdef -ItemType directory
 	Copy-Item -Path "executables\Windows\x64\core\*" -Destination "Release\system\loadlib"
 	'''
     }
