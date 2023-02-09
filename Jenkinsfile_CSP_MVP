@@ -22,7 +22,7 @@ node {
 	New-Item -Path Release-${env.BUILD_NUMBER}-${env.BUILD_ID}\\system\\logs -ItemType directory
 	New-Item -Path Release-${env.BUILD_NUMBER}-${env.BUILD_ID}\\system\\rdef -ItemType directory
 	Copy-Item -Path "executables\\Windows\\x64\\core\\*" -Destination "Release-${env.BUILD_NUMBER}-${env.BUILD_ID}\\system\\loadlib"
-	create-7zip "Release-${env.BUILD_NUMBER}-${env.BUILD_ID}\\system" "Release-${env.BUILD_NUMBER}-${env.BUILD_ID}.zip"
+	write-zip "Release-${env.BUILD_NUMBER}-${env.BUILD_ID}\\system" "Release-${env.BUILD_NUMBER}-${env.BUILD_ID}.zip"
 	'''
     }
     
