@@ -22,7 +22,7 @@ node {
 	New-Item -Path Release-$env:BUILD_NUMBER-$env:BUILD_ID\\system\\logs -ItemType directory
 	New-Item -Path Release-$env:BUILD_NUMBER-$env:BUILD_ID\\system\\rdef -ItemType directory
 	Copy-Item -Path "executables\\Windows\\x64\\core\\*" -Destination "Release-$env:BUILD_NUMBER-$env:BUILD_ID\\system\\loadlib"
-	Compress-Archive -Path "Release-$env:BUILD_NUMBER-$env:BUILD_ID\\system" -DestinationPath "Release-$env:BUILD_NUMBER-$env:BUILD_ID.zip"
+	Compress-Archive -Path "Release-$env:BUILD_NUMBER-$env:BUILD_ID\\system" -DestinationPath "Release-$env:BUILD_NUMBER-$env:BUILD_DATE_FORMATTED.zip"
 	'''
     }
     
