@@ -35,7 +35,7 @@ node {
    
     stage('Deploy') {
 
-	def response = httpRequest acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_FORM_DATA', X-Requested-With: 'X-Requested-With',
+	def response = httpRequest acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_FORM_DATA',
 	    customHeaders: [[Origin: 'http://localhost:10086', Host: 'localhost:10086']],
 	    httpMode: 'POST', quiet: true,
             requestBody: '''{
