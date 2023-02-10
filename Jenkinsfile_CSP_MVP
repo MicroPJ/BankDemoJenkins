@@ -35,8 +35,8 @@ node {
    
     stage('Deploy') {
         //def response = httpRequest "http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/logon"
-	
-	httpRequest customHeaders: 'Origin: http://localhost:10086', 'Host: localhost:10086', 'X-Requested-With: X-Requested-With',
+
+	httpRequest Origin: 'http://localhost:10086', Host: 'localhost:10086', X-Requested-With: 'X-Requested-With',
 	    httpMode: 'POST', quiet: true,
             requestBody: '''{
 	    "CN":"region",
