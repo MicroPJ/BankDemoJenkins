@@ -2,7 +2,7 @@ node {
 
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
-        //cleanWs()
+        cleanWs()
 	git branch: "main",
         url: 'https://github.com/MicroFocus/BankDemo.git'
     }
