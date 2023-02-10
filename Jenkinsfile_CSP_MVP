@@ -38,7 +38,7 @@ node {
 
 	//def response = httpRequest customHeaders: [[name: 'foo', value: 'bar']]
 
-	def httpRequest customHeaders: [[Origin: 'http://localhost:10086', Host: 'localhost:10086', X-Requested-With: 'X-Requested-With']],
+	def response = httpRequest customHeaders: [[Origin: 'http://localhost:10086', Host: 'localhost:10086', X-Requested-With: 'X-Requested-With']],
 	    httpMode: 'POST', quiet: true,
             requestBody: '''{
 	    "CN":"region",
