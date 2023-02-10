@@ -35,7 +35,7 @@ node {
    
     stage('Deploy') {
 
-	bat 'curl -X POST "http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/logon" -H "Origin:http://localhost:30086" -H "Host:localhost:30086" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\"CN\":\"region\",\"mfUser\":\"sysad\",\"mfPassword\":\"sysad\",\"mfUseSession\":\"true\"}"'
+	bat "Curl -X 'POST' 'http://localhost:10086/logon' -H 'accept: application/json' -H 'X-Requested-With: X-Requested-With' -H 'Content-Type: application/json' -d '{/"mfUser/": /"sysad/",/"mfPassword/": /"sysad/"}'"
 
 //	def response = httpRequest acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_FORM_DATA', 
 //	    customHeaders: [[origin: 'http://localhost:10086', host: 'localhost:10086', x-requested-with: ]],
