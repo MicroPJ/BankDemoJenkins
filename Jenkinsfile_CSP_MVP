@@ -28,6 +28,7 @@ node {
 	Invoke-WebRequest https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/BANKVSAM.json -OutFile "build\\Release-$env:BUILD_TAG\\system\\rdef\\BANKVSAM.json"
 	Copy-Item -Path "datafiles\\*" -Destination "build\\Release-$env:BUILD_TAG\\system\\catalog\\data"
 	Copy-Item -Path "executables\\Windows\\x64\\core\\*" -Destination "build\\Release-$env:BUILD_TAG\\system\\loadlib"
+	Invoke-WebRequest https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/dfhdrdat -OutFile "build\\Release-$env:BUILD_TAG\\system\\rdef\\dfhdrdat"
 	Compress-Archive -Path "build\\Release-$env:BUILD_TAG\\system" -DestinationPath "build\\Release-$env:BUILD_TAG.zip"
 	'''
 	archiveArtifacts artifacts: 'build/*.zip', fingerprint: true
