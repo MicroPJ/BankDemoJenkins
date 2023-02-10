@@ -34,11 +34,8 @@ node {
 	//curl -X POST "http://192.168.159.128:30086/native/v1/regions/172.17.0.5/30090/logon" -H "Origin:http://localhost:30086" -H "Host:localhost:30086" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\"CN\":\"region\",\"mfUser\":\"sysad\",\"mfPassword\":\"sysad\",\"mfUseSession\":\"true\"}"
    
     stage('Deploy') {
-        //def response = httpRequest "http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/logon"
 
-	//def response = httpRequest customHeaders: [[name: 'foo', value: 'bar']]
-
-	def response = httpRequest customHeaders: [[Origin: 'http://localhost:10086', Host: 'localhost:10086', X-Requested-With: 'X-Requested-With']],
+	def response = httpRequest customHeaders: [['Origin: http://localhost:10086', 'Host: localhost:10086', 'X-Requested-With: X-Requested-With']],
 	    httpMode: 'POST', quiet: true,
             requestBody: '''{
 	    "CN":"region",
