@@ -36,7 +36,7 @@ node {
     stage('Deploy') {
 
 	//Logoff
-	bat 'curl -X "DELETE" "ttp://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/logoff" -H "accept: application/json" -H "X-Requested-With: X-Requested-With"'
+	bat 'curl -X "DELETE" "http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/logoff" -H "accept: application/json" -H "X-Requested-With: X-Requested-With"'
 	//Logon
 	bat 'curl -X POST "http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/logon" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\\"CN\\":\\"region\\",\\"mfUser\\":\\"sysad\\",\\"mfPassword\\":\\"sysad\\",\\"mfUseSession\\":\\"true\\"}"'
  
