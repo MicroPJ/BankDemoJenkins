@@ -25,7 +25,7 @@ node {
 	New-Item -Path build\\Release-$env:BUILD_TAG\\system\\loadlib -ItemType directory
 	New-Item -Path build\\Release-$env:BUILD_TAG\\system\\logs -ItemType directory
 	New-Item -Path build\\Release-$env:BUILD_TAG\\system\\rdef -ItemType directory
-	Invoke-WebRequest "https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/BANKVSAM.json"l -OutFile "build\\Release-$env:BUILD_TAG\\system\\rdef\\BANKVSAM.json"
+	Invoke-WebRequest https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/BANKVSAM.json -OutFile "build\\Release-$env:BUILD_TAG\\system\\rdef\\BANKVSAM.json"
 	Copy-Item -Path "executables\\Windows\\x64\\core\\*" -Destination "build\\Release-$env:BUILD_TAG\\system\\loadlib"
 	Compress-Archive -Path "build\\Release-$env:BUILD_TAG\\system" -DestinationPath "build\\Release-$env:BUILD_TAG.zip"
 	'''
