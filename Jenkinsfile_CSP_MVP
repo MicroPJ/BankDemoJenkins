@@ -37,7 +37,7 @@ node {
         //def response = httpRequest "http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/logon"
 	
 	httpRequest acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON',
-            customHeaders: [[Origin:'http://localhost:10086',Host:'localhost:10086',accept:'application/json',X-Requested-With:'X-Requested-With',Content-Type:'application/json']],
+            customHeaders: [[Origin:'http://localhost:10086', Host:'localhost:10086', accept:'application/json', 'X-Requested-With: X-Requested-With', Content-Type:'application/json']],
 	    httpMode: 'POST', quiet: true,
             requestBody: '''{
 	    "CN":"region",
