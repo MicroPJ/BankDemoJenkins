@@ -26,7 +26,7 @@ node {
 	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs -ItemType directory
 	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef -ItemType directory
 	Invoke-WebRequest https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/BANKVSAM.json -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json"
-	Invoke-WebRequest https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/BANKVSAM.xml -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.xml"
+	Invoke-WebRequest https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/BANKDEMO.xml -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.xml"
 	Copy-Item -Path "datafiles\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data"
 	Copy-Item -Path "executables\\Windows\\x64\\core\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
 	Invoke-WebRequest https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/dfhdrdat -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\dfhdrdat"
