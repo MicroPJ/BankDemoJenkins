@@ -47,7 +47,7 @@ node {
 	bat 'curl -X POST "http://127.0.0.1:10086/logon" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\\"CN\\":\\"region\\",\\"mfUser\\":\\"sysad\\",\\"mfPassword\\":\\"sysad\\",\\"mfUseSession\\":\\"true\\"}"'
         
 	//IMPORT JSON
-        bat 'curl -X POST "http://127.0.0.1:10086/native/v1/import/127.0.0.1/86" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "$env:BANKVSAMjson"'
+        bat 'curl -X POST "http://127.0.0.1:10086/native/v1/import/127.0.0.1/86" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "${env.BANKVSAMjson}"'
 	
 //	def response = httpRequest acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_FORM_DATA', 
 //	    customHeaders: [[origin: 'http://localhost:10086', host: 'localhost:10086', x-requested-with: ]],
