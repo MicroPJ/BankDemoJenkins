@@ -24,6 +24,8 @@ node {
 	//Create System Release folder structure
 	powershell '''
 	New-Item -Path build -ItemType directory
+	New-Item -Path test -ItemType directory
+	New-Item -Path test\\logs -ItemType directory
 	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system -ItemType directory
 	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog -ItemType directory
 	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data -ItemType directory
@@ -60,11 +62,11 @@ node {
 	
 	//final String response =bat(script: '''curl -s -X GET "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With"''', returnStdout: true).trim()
 	powershell '''
-	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs\\status.json" | ConvertFrom-Json  
-	$env:myJson = Get-Content 'build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs\\status.json' | ConvertFrom-Json
-	$env:responseCN = (Get-Content 'build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs\\status.json' | ConvertFrom-Json).CN
-	$env:responsemfError = (Get-Content 'build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs\\status.json' | ConvertFrom-Json).mfError
-	$env:responsemfServerStatus = (Get-Content 'build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs\\status.json' | ConvertFrom-Json).mfServerStatus
+	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "test\\logs\\status.json" | ConvertFrom-Json  
+	$env:myJson = Get-Content 'test\\logs\\status.json' | ConvertFrom-Json
+	$env:responseCN = (Get-Content test\\logs\\status.json' | ConvertFrom-Json).CN
+	$env:responsemfError = (Get-Content 'test\\logs\\status.json' | ConvertFrom-Json).mfError
+	$env:responsemfServerStatus = (Get-Content 'test\\logs\\status.json' | ConvertFrom-Json).mfServerStatus
 	write-output "Region $env:responseCN is $env:responsemfError with status $env:responsemfServerStatus"
 	 if($env:responsemfError = 'OKAY')
 	 {
@@ -72,6 +74,8 @@ node {
 	  exit 0
 	 }else{
 	  write-host "TEST FAILED"
+	  currentBuild.status = 'ABORTED'
+	  error("Response is NOT OKAY")
 	  exit 1
 	 }
 	'''
