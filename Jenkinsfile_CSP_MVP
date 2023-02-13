@@ -56,7 +56,7 @@ node {
 	# Logoff
 	Invoke-WebRequest -Method DELETE -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/logoff -OutFile "test\\logs\\logoff.json" | ConvertFrom-Json  
 	# Logon
-	Invoke-WebRequest -Method POST -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/logon -Body '''{\\"CN\\":\\"region\\",\\"mfUser\\":\\"sysad\\",\\"mfPassword\\":\\"sysad\\",\\"mfUseSession\\":\\"true\\"}''' -OutFile "test\\logs\\logon.json" | ConvertFrom-Json  
+	Invoke-WebRequest -Method POST -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/logon -Body '''{"CN":"region","mfUser":"sysad","mfPassword":"sysad","mfUseSession":"true"}''' -OutFile "test\\logs\\logon.json" | ConvertFrom-Json  
 	# Import
 	$env:myJson = Get-Content 'build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json' | ConvertFrom-Json
 	Invoke-WebRequest -Method POST -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/import/127.0.0.1/86 -Body """$env:myJson""" -OutFile "test\\logs\\import.json" | ConvertFrom-Json  
