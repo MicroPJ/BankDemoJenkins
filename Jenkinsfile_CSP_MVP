@@ -60,14 +60,14 @@ node {
 	//$env:responsemfError = (Get-Content 'test\\logs\\logoff.json' | ConvertFrom-Json).mfError
 	//$env:responsemfServerStatus = (Get-Content 'test\\logs\\logoff.json' | ConvertFrom-Json).mfServerStatus
 	//write-output "Region $env:responseCN is $env:responsemfError with status $env:responsemfServerStatus"
-	// if($env:responsemfError = 'OKAY')
-	// {
-	//  write-host "TEST PASSED"
-	//  exit 0
-	// }else{
-	//  write-host "TEST FAILED"
-	//  exit 1
-	// }
+	//if($env:responsemfError = 'OKAY')
+	//{
+	//write-host "TEST PASSED"
+	//exit 0
+	//}else{
+	//write-host "TEST FAILED"
+	//exit 1
+	//}
 	'''
 	//Logon
 	bat 'curl -X POST "http://127.0.0.1:10086/logon" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\\"CN\\":\\"region\\",\\"mfUser\\":\\"sysad\\",\\"mfPassword\\":\\"sysad\\",\\"mfUseSession\\":\\"true\\"}"'
