@@ -72,9 +72,9 @@ node {
         	
 	//env.jsonObj = readJSON text: response
 	
-        if ($env.responsemfError == 'OK') {
+        if (${env.responsemfError} == 'OK') {
             print 'Response is OKAY'
-	    print 'Region Status is $env.mfServerStatus'
+	    print 'Region Status is ${env.mfServerStatus}'
 	//    bat 'set'
         } else {
             print 'Response is NOT OKAY'
