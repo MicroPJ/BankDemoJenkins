@@ -52,7 +52,7 @@ node {
 	//bat 'curl -X "DELETE" "http://127.0.0.1:10086/logoff" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With"'
 	
 	powershell '''
-	//Logoff
+	# Logoff
 	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/logoff -OutFile "test\\logs\\logoff.json" | ConvertFrom-Json  
 	'''
 	//Logon
