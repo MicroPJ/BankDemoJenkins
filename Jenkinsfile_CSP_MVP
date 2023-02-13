@@ -43,9 +43,7 @@ node {
 	'''
 	archiveArtifacts artifacts: 'build/*.zip', fingerprint: true
     }
-   
-	//curl -X POST "http://192.168.159.128:30086/native/v1/regions/172.17.0.5/30090/logon" -H "Origin:http://localhost:30086" -H "Host:localhost:30086" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\"CN\":\"region\",\"mfUser\":\"sysad\",\"mfPassword\":\"sysad\",\"mfUseSession\":\"true\"}"
-   
+     
     stage('Deploy') {
 
 	//Logoff
@@ -60,20 +58,18 @@ node {
         
 	//IMPORT JSON
         bat '''curl -X POST "http://127.0.0.1:10086/native/v1/import/127.0.0.1/86" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json"'''
-
     }
     
     stage('Test') {  
-    	//def response = bat '''curl -X GET "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With"'''
-	
-	//final String response =bat(script: '''curl -s -X GET "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With"''', returnStdout: true).trim()
-	powershell '''
+
+        powershell '''
 	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "test\\logs\\status.json" | ConvertFrom-Json  
 	$env:myJson = Get-Content 'test\\logs\\status.json' | ConvertFrom-Json
 	$env:responseCN = (Get-Content test\\logs\\status.json' | ConvertFrom-Json).CN
 	$env:responsemfError = (Get-Content 'test\\logs\\status.json' | ConvertFrom-Json).mfError
 	$env:responsemfServerStatus = (Get-Content 'test\\logs\\status.json' | ConvertFrom-Json).mfServerStatus
 	write-output "Region $env:responseCN is $env:responsemfError with status $env:responsemfServerStatus"
+	
 	if( $env:responsemfError = 'OKAY' )
 	{
 	  write-host "TEST PASSED"
@@ -83,18 +79,5 @@ node {
 	  exit 1
 	}
 	'''
-	//print "*--- Region Status Request"
-	//print response
-        	
-	//env.jsonObj = readJSON text: response
-	
-        //if (${env.responsemfError} == 'OK') {
-        //    print 'Response is OKAY'
-	//    print 'Region Status is ${env.mfServerStatus}'
-	//    bat 'set'
-        //} else {
-        //    print 'Response is NOT OKAY'
-	//    error("Response is NOT OKAY")
-        //}
     }
 }
