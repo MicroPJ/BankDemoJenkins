@@ -2,6 +2,7 @@ node {
 
     environment {
         RESPONSE = ''
+	jsonObj = ''
     }
 
     stage('Env Variables') {
@@ -60,7 +61,7 @@ node {
 	print "*--- Region Status Request"
 	print $env:RESPONSE
         	
-	def jsonObj = readJSON text: '{  "CN" : "BANKVSAM",  "mfError" : "OK",  "mfServerStatus" : "Stopped",  "mfMarkedForDelete" : 0}}'
+	def ennv.jsonObj = readJSON text: '{  "CN" : "BANKVSAM",  "mfError" : "OK",  "mfServerStatus" : "Stopped",  "mfMarkedForDelete" : 0}}'
 	
         //if ($jsonObj.mfError == 'OK') {
         //    print 'Response is OKAY'
