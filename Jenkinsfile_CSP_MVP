@@ -58,7 +58,7 @@ node {
 	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs\\status.json" | ConvertFrom-Json  
 	$myJson = Get-Content 'build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs\\status.json' | ConvertFrom-Json
 	$Obj = $myJson.Content | ConvertFrom-Json
-	write-output "Region $Obj.CN is $Obj.mfError with status $Obj.mfServerStatus"
+	write-output "Region $Obj.CN.Value is $Obj.mfError.Value with status $Obj.mfServerStatus.Value"
 	'''
 	//print "*--- Region Status Request"
 	//print response
