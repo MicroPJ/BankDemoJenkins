@@ -70,7 +70,7 @@ node {
 	//print "*--- Region Status Request"
 	//print response
         	
-	env.jsonObj = readJSON text: response
+	//env.jsonObj = readJSON text: response
 	
         if ($env.responsemfError == 'OK') {
             print 'Response is OKAY'
