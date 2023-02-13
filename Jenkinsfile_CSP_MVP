@@ -74,8 +74,7 @@ node {
 	  exit 0
 	 }else{
 	  write-host "TEST FAILED"
-	  currentBuild.status = 'ABORTED'
-	  error("Response is NOT OKAY")
+	  $env:currentBuild.status = 'ABORTED'
 	  exit 1
 	 }
 	'''
