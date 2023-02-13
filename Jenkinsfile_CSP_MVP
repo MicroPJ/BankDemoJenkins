@@ -1,5 +1,9 @@
 node {
-
+    environment {
+         responseCN = ''
+	 responsemfError = ''
+	 responsemfServerStatus = ''
+    }
     stage('Env Variables') {
 	 bat 'set'
     }
