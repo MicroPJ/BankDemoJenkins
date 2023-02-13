@@ -60,7 +60,7 @@ node {
 	print "*--- Region Status Request"
 	print $env.RESPONSE
         	
-	def jsonObj = readJSON text: $env.RESPONSE
+	def jsonObj = readJSON text: $env.RESPONSE.toString()
 	
         if (${jsonObj.mfError} == 'OK') {
             print 'Response is OKAY'
