@@ -70,7 +70,7 @@ node {
 	$env:responsemfServerStatus = (Get-Content 'test\\logs\\status.json' | ConvertFrom-Json).mfServerStatus
 	write-output "Region $env:responseCN is $env:responsemfError with status $env:responsemfServerStatus"
 	
-	if( $env:responsemfError = 'OKAY' )
+	if ($env:responsemfError = 'OKAY')
 	{
 	  write-host "TEST PASSED"
 	  exit 0
