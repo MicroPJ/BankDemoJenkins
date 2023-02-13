@@ -1,6 +1,7 @@
 node {
     environment {
-         responseCN = ''
+         myJson = ''
+	 responseCN = ''
 	 responsemfError = ''
 	 responsemfServerStatus = ''
     }
@@ -60,7 +61,7 @@ node {
 	//final String response =bat(script: '''curl -s -X GET "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With"''', returnStdout: true).trim()
 	powershell '''
 	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs\\status.json" | ConvertFrom-Json  
-	$myJson = Get-Content 'build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs\\status.json' | ConvertFrom-Json
+	$env:myJson = Get-Content 'build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs\\status.json' | ConvertFrom-Json
 	$env:responseCN = (Get-Content 'build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs\\status.json' | ConvertFrom-Json).CN
 	$env:responsemfError = (Get-Content 'build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs\\status.json' | ConvertFrom-Json).mfError
 	$env:responsemfServerStatus = (Get-Content 'build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs\\status.json' | ConvertFrom-Json).mfServerStatus
@@ -69,15 +70,15 @@ node {
 	//print "*--- Region Status Request"
 	//print response
         	
-	//env.jsonObj = readJSON text: response
+	env.jsonObj = readJSON text: response
 	
-        //if ($jsonObj.mfError == 'OK') {
-        //    print 'Response is OKAY'
-	//    print 'Region Status is $jsonObj.mfServerStatus'
-	    bat 'set'
-        //} else {
-        //    print 'Response is NOT OKAY'
-	//    error("Response is NOT OKAY")
-        //}
+        if ($env.responsemfError == 'OK') {
+            print 'Response is OKAY'
+	    print 'Region Status is $env.mfServerStatus'
+	//    bat 'set'
+        } else {
+            print 'Response is NOT OKAY'
+	    error("Response is NOT OKAY")
+        }
     }
 }
