@@ -66,19 +66,27 @@ node {
 	$env:responsemfError = (Get-Content 'build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs\\status.json' | ConvertFrom-Json).mfError
 	$env:responsemfServerStatus = (Get-Content 'build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs\\status.json' | ConvertFrom-Json).mfServerStatus
 	write-output "Region $env:responseCN is $env:responsemfError with status $env:responsemfServerStatus"
+	 if($env:responsemfError == 'OKAY')
+	 {
+	  write-host "TEST PASSED"
+	  exit 0
+	 }else{
+	  write-host "TEST FAILED"
+	  exit 1
+	 }
 	'''
 	//print "*--- Region Status Request"
 	//print response
         	
 	//env.jsonObj = readJSON text: response
 	
-        if (${env.responsemfError} == 'OK') {
-            print 'Response is OKAY'
-	    print 'Region Status is ${env.mfServerStatus}'
+        //if (${env.responsemfError} == 'OK') {
+        //    print 'Response is OKAY'
+	//    print 'Region Status is ${env.mfServerStatus}'
 	//    bat 'set'
-        } else {
-            print 'Response is NOT OKAY'
-	    error("Response is NOT OKAY")
-        }
+        //} else {
+        //    print 'Response is NOT OKAY'
+	//    error("Response is NOT OKAY")
+        //}
     }
 }
