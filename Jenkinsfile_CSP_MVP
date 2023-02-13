@@ -55,7 +55,6 @@ node {
 	powershell '''
 	# Logoff
 	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/logoff -OutFile "test\\logs\\logoff.json" | ConvertFrom-Json  
-	'''
 	# Logon
 	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/logon -OutFile "test\\logs\\logon.json" | ConvertFrom-Json  
 	'''
