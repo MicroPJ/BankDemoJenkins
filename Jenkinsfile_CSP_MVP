@@ -64,7 +64,8 @@ node {
 	
         if (${jsonObj.mfError} == 'OK') {
             print 'Response is OKAY'
-	    print 'Region Status is $jsonObj.mfServerStatus'
+	    //print 'Region Status is $jsonObj.mfServerStatus'
+	    bat 'set'
         } else {
             print 'Response is NOT OKAY'
 	    error("Response is NOT OKAY")
