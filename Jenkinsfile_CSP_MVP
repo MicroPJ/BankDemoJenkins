@@ -62,6 +62,9 @@ node {
 	#Invoke-WebRequest -Method POST -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/import/127.0.0.1/86 -Body """$env:myJson""" -OutFile "test\\logs\\import.json" | ConvertFrom-Json  
 
 	'''
+ 	//Delete all regions
+	bat 'curl -X "DELETE" "http://localhost:10086/native/v1/regions/127.0.0.1/86" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With"'
+	
 	//Logon
 	bat 'curl -X POST "http://127.0.0.1:10086/logon" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\\"CN\\":\\"region\\",\\"mfUser\\":\\"sysad\\",\\"mfPassword\\":\\"sysad\\",\\"mfUseSession\\":\\"true\\"}"'
  	      
