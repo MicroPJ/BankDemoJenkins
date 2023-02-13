@@ -62,9 +62,9 @@ node {
         	
 	def jsonObj = readJSON text: '{  "CN" : "BANKVSAM",  "mfError" : "OK",  "mfServerStatus" : "Stopped",  "mfMarkedForDelete" : 0}}'
 	
-        if (${jsonObj.mfError} == 'OK') {
+        if ($jsonObj.mfError == 'OK') {
             print 'Response is OKAY'
-	    //print 'Region Status is $jsonObj.mfServerStatus'
+	    print 'Region Status is $jsonObj.mfServerStatus'
 	    bat 'set'
         } else {
             print 'Response is NOT OKAY'
