@@ -67,13 +67,14 @@ node {
         bat '''curl -X POST "http://127.0.0.1:10086/native/v1/import/127.0.0.1/86" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json"'''
 	
 	//Start BANKVSAM
-	sleep 15
+	sleep 5
 	bat '''curl -X POST "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/start" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\start.json"'''
 
     }
     
     stage('Test') {  
 
+	sleep 5
         powershell '''
 	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "test\\logs\\status.json" | ConvertFrom-Json  
 	$env:myJson = Get-Content 'test\\logs\\status.json' | ConvertFrom-Json
