@@ -62,21 +62,19 @@ node {
 	//#$env:myJson = Get-Content 'build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json' | ConvertFrom-Json
 	//#Invoke-WebRequest -Method POST -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/import/127.0.0.1/86 -Body """$env:myJson""" -OutFile "test\\logs\\import.json" | ConvertFrom-Json  
 	//'''
-	//Stop BANKVSAM
-	//bat 'curl -X POST "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/stop" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\"CN\":\"region\",\"mfUser\":\"sysad\",\"mfPassword\":\"sysad\",\"mfUseSession\":\"true\",\"mfGroup\":\"string\",\"mfColdStart\": true,\"mfStartMode\":\"warm\"}"'
 
 	//IMPORT JSON
         bat '''curl -X POST "http://127.0.0.1:10086/native/v1/import/127.0.0.1/86" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json"'''
 	
 	//Start BANKVSAM
-	bat '''curl -X POST "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/start" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\start.json"'''
+	bat '''curl -X POST "http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/start" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\start.json"'''
 
     }
     
     stage('Test') {  
 
         powershell '''
-	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "test\\logs\\status.json" | ConvertFrom-Json  
+	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "test\\logs\\status.json" | ConvertFrom-Json  
 	$env:myJson = Get-Content 'test\\logs\\status.json' | ConvertFrom-Json
 	$env:responseCN = (Get-Content 'test\\logs\\status.json' | ConvertFrom-Json).CN
 	$env:responsemfError = (Get-Content 'test\\logs\\status.json' | ConvertFrom-Json).mfError
