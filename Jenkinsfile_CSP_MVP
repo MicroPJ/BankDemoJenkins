@@ -50,19 +50,19 @@ node {
 	bat 'curl -X "DELETE" "http://127.0.0.1:10086/logoff" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With"'
 	
 	//Logon
-	bat 'curl -X POST "http://127.0.0.1:10086/logon" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d """{"CN":"region","mfUser":"sysad","mfPassword":"sysad","mfUseSession":"true"}"""'
+	bat 'curl -X POST "http://127.0.0.1:10086/logon" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\"CN\":\"region\",\"mfUser\":\"sysad\",\"mfPassword\":\"sysad",\"mfUseSession\":\"true\"}"'
  
 	//powershell '''
 	//# Logoff
 	//Invoke-WebRequest -Method DELETE -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/logoff -OutFile "test\\logs\\logoff.json" | ConvertFrom-Json  
 	//# Logon
-	//#Invoke-WebRequest -Method POST -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/logon -Body "{\\"CN\\":\\"region\\",\\"mfUser\\":\\"sysad\\",\\"mfPassword\\":\\"sysad\\",\\"mfUseSession\\":\\"true\\"}" -OutFile "test\\logs\\logon.json" | ConvertFrom-Json  
+	//#Invoke-WebRequest -Method POST -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/logon -Body "{\"CN\":\"region\",\"mfUser\":\"sysad\",\"mfPassword\":\"sysad\",\"mfUseSession\":\"true\"}" -OutFile "test\\logs\\logon.json" | ConvertFrom-Json  
 	//# Import
 	//#$env:myJson = Get-Content 'build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json' | ConvertFrom-Json
 	//#Invoke-WebRequest -Method POST -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/import/127.0.0.1/86 -Body """$env:myJson""" -OutFile "test\\logs\\import.json" | ConvertFrom-Json  
 	//'''
 	//Stop BANKVSAM
-	//bat 'curl -X POST "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/stop" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\\"CN\\":\\"region\\",\\"mfUser\\":\\"sysad\\",\\"mfPassword\\":\\"sysad\\",\\"mfUseSession\\":\\"true\\",\\"mfGroup\\": \\"string\\",\\"mfColdStart\\": true,\\"mfStartMode\\":\\"warm\\"}"'
+	//bat 'curl -X POST "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/stop" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\"CN\":\"region\",\"mfUser\":\"sysad\",\"mfPassword\":\"sysad\",\"mfUseSession\":\"true\",\"mfGroup\":\"string\",\"mfColdStart\": true,\"mfStartMode\":\"warm\"}"'
 
 	//sleep(time:15,unit:"SECONDS")
 
@@ -76,7 +76,7 @@ node {
         bat '''curl -X POST "http://127.0.0.1:10086/native/v1/import/127.0.0.1/86" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json"'''
 	
 	//Start BANKVSAM
-	bat 'curl -X POST "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/start" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\\"CN\\":\\"region\\",\\"mfUser\\":\\"sysad\\",\\"mfPassword\\":\\"sysad\\",\\"mfUseSession\\":\\"true\\",\\"mfGroup\\": \\"string\\",\\"mfColdStart\\": true,\\"mfStartMode\\":\\"warm\\"}"'
+	bat 'curl -X POST "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/start" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\"CN\":\"region\",\"mfUser\":\"sysad\",\"mfPassword\":\"sysad\",\"mfUseSession\":\"true\",\"mfGroup\":\"string\",\"mfColdStart\": true,\"mfStartMode\":\"warm\"}"'
 
     }
     
