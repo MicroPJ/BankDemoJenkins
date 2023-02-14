@@ -33,7 +33,8 @@ node {
 	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs -ItemType directory
 	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef -ItemType directory
 	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/BANKVSAM.json -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json"
-	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/BANKDEMO.xml -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.xml"
+	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/logon.json -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\logon.json"
+	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/start.json -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\start.json"
 	Copy-Item -Path "datafiles\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data"
 	Copy-Item -Path "executables\\Windows\\x64\\core\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
 	Copy-Item -Path "executables\\Windows\\x64\\data\\VSAM\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
@@ -50,7 +51,7 @@ node {
 	bat 'curl -X "DELETE" "http://127.0.0.1:10086/logoff" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With"'
 	
 	//Logon
-	bat 'curl -X POST "http://127.0.0.1:10086/logon" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\"CN\":\"region\",\"mfUser\":\"sysad\",\"mfPassword\":\"sysad",\"mfUseSession\":\"true\"}"'
+	bat 'curl -X POST "http://127.0.0.1:10086/logon" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\logon.json"'''
  
 	//powershell '''
 	//# Logoff
@@ -64,19 +65,11 @@ node {
 	//Stop BANKVSAM
 	//bat 'curl -X POST "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/stop" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\"CN\":\"region\",\"mfUser\":\"sysad\",\"mfPassword\":\"sysad\",\"mfUseSession\":\"true\",\"mfGroup\":\"string\",\"mfColdStart\": true,\"mfStartMode\":\"warm\"}"'
 
-	//sleep(time:15,unit:"SECONDS")
-
- 	//Delete all regions
-	//bat 'curl -X "DELETE" "http://localhost:10086/native/v1/regions/127.0.0.1/86" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With"'
-	
-	//Logon
-	//bat 'curl -X POST "http://127.0.0.1:10086/logon" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\\"CN\\":\\"region\\",\\"mfUser\\":\\"sysad\\",\\"mfPassword\\":\\"sysad\\",\\"mfUseSession\\":\\"true\\"}"'
- 	      
 	//IMPORT JSON
         bat '''curl -X POST "http://127.0.0.1:10086/native/v1/import/127.0.0.1/86" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json"'''
 	
 	//Start BANKVSAM
-	bat 'curl -X POST "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/start" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "{\"CN\":\"region\",\"mfUser\":\"sysad\",\"mfPassword\":\"sysad\",\"mfUseSession\":\"true\",\"mfGroup\":\"string\",\"mfColdStart\": true,\"mfStartMode\":\"warm\"}"'
+	bat 'curl -X POST "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/start" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\start.json"'''
 
     }
     
