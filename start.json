@@ -1,1 +1,8 @@
-{"CN":"region","mfUser":"sysad","mfPassword":"sysad","mfUseSession":"true","mfGroup":"string","mfColdStart": true,"mfStartMode":"warm"}
+{
+  "mfUser": "sysad",
+  "mfPassword": "sysad",
+  "mfUseSession": true,
+  "mfGroup": "string",
+  "mfColdStart": true,
+  "mfStartMode": "warm"
+}
