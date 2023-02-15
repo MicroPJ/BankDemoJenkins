@@ -112,7 +112,7 @@ node {
 	$env:responseCN = (Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json).CN
 	$env:responsemfError = (Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json).mfError
 	$env:responsemfServerStatus = (Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json).mfServerStatus
-	archiveArtifacts artifacts: 'test/logs/*.*', fingerprint: true	
+
 	if ($env:responsemfError = 'OKAY')
 	{
 	  write-host "**************"
@@ -136,5 +136,6 @@ node {
 	  exit 1
 	}
 	'''
+	archiveArtifacts artifacts: 'test/logs/*.*', fingerprint: true	
     }
 }
