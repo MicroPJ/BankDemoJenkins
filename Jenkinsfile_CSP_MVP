@@ -21,7 +21,7 @@ node {
 	 write-host "***************"
 	 write-host "*--- ERROR ---*"
 	 write-host "*"
-	 write-host "BANKVSAM region exists. Please DELETE."
+	 write-host "* BANKVSAM region exists. Please DELETE."
 	 write-host "*"
 	 write-host "*-------------*"
 	 write-host "***************"
@@ -32,7 +32,7 @@ node {
 	 write-host "**************"
 	 write-host "*--- INFO ---*"
 	 write-host "*"
-	 write-host "BANKVSAM region does NOT exists. Good to continue."
+	 write-host "* BANKVSAM region does NOT exists. Good to continue."
 	 write-host "*"
 	 write-host "*------------*"
 	 write-host "**************"
@@ -111,13 +111,18 @@ node {
 	
 	if ($env:responsemfError = 'OKAY')
 	{
-	  write-host "TEST PASSED"
+	  write-host "**************"
+	  write-host "*--- INFO ---*"
+	  write-host "*"
+	  write-host "* TEST PASSED"
+	  write-host "*"
+	  write-host "*------------*"
 	  exit 0
 	}else{
 	  write-host "***************"
 	  write-host "*--- ERROR ---*"
 	  write-host "*"
-	  write-host "TEST FAILED"
+	  write-host "* TEST FAILED"
 	  write-host "*"
 	  write-host "*--------------*"
 	  write-host "***************"
