@@ -7,6 +7,7 @@ node {
     }
 
     stage('Download Config Files') {  
+    	cleanWs()
     	powershell '''
 	New-Item -Path build -ItemType directory
 	New-Item -Path test -ItemType directory
@@ -60,7 +61,6 @@ node {
 
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
-        cleanWs()
 	git branch: "main",
         url: 'https://github.com/MicroFocus/BankDemo.git'
     }
