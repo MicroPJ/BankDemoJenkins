@@ -6,8 +6,14 @@ node {
 	 responsemfServerStatus = ''
     }
 
-    stage('Download Config Files') {  
+    stage('Clone repository') {
+        /* Let's make sure we have the repository cloned to our workspace */
     	cleanWs()
+	git branch: "main",
+        url: 'https://github.com/MicroFocus/BankDemo.git'
+    }
+
+    stage('Download Config Files') {  
     	powershell '''
 	New-Item -Path build -ItemType directory
 	New-Item -Path test -ItemType directory
@@ -25,7 +31,7 @@ node {
 	'''
     }
 
-    stage('Pre-checks') {  
+    stage('Pre-build Checks') {  
 
 	//Logoff
 	bat '''curl -X "DELETE" "http://127.0.0.1:10086/logoff" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With"'''
@@ -57,12 +63,6 @@ node {
 	 write-host "**************"
 	}
 	'''
-    }
-
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
-	git branch: "main",
-        url: 'https://github.com/MicroFocus/BankDemo.git'
     }
 
     stage('Build') {
