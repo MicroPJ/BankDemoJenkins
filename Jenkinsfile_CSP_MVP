@@ -13,7 +13,7 @@ node {
 	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/logon.json -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\logon.json"
 	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/TN3270.json -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\TN3270.json"
 	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/start.json -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\start.json"
-	''
+	'''
     }
 
     stage('Pre-checks') {  
@@ -27,7 +27,7 @@ node {
         powershell '''
 	Try
 	{
-	 Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "test\\logs\\status.json" | ConvertFrom-Json  
+	 Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "test\\logs\\status.json" | ConvertFrom-Json 
 	 write-host "***************"
 	 write-host "*--- ERROR ---*"
 	 write-host "*"
