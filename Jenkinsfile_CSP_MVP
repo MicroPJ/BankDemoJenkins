@@ -34,6 +34,7 @@ node {
 	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef -ItemType directory
 	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/BANKVSAM.json -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json"
 	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/logon.json -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\logon.json"
+	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/TN3270.json -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\TN3270.json"
 	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/start.json -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\start.json"
 	Copy-Item -Path "datafiles\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data"
 	Copy-Item -Path "executables\\Windows\\x64\\core\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
@@ -65,6 +66,10 @@ node {
 
 	//IMPORT JSON
         bat '''curl -X POST "http://127.0.0.1:10086/native/v1/import/127.0.0.1/86" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json"'''
+	
+	//Update BANKVSAM region
+	sleep 5
+	bat '''curl -X POST "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\TN3270.json"'''
 	
 	//Start BANKVSAM
 	sleep 5
