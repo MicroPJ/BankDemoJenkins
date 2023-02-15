@@ -69,7 +69,7 @@ node {
 	
 	//Update BANKVSAM region
 	sleep 5
-	bat '''curl -X POST "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\TN3270.json"'''
+	bat '''curl -X PUT "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\TN3270.json"'''
 	
 	//Start BANKVSAM
 	sleep 5
