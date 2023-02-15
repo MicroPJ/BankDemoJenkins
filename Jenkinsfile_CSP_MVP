@@ -8,16 +8,34 @@ node {
 
     stage('Pre-checks') {  
 
+	//Logoff
+	bat '''curl -X "DELETE" "http://127.0.0.1:10086/logoff" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With"'''
+	
+	//Logon
+	bat '''curl -X POST "http://127.0.0.1:10086/logon" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\logon.json"'''
+
         powershell '''
 	Try
 	{
 	 Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "test\\logs\\status.json" | ConvertFrom-Json  
+	 write-host "***************"
+	 write-host "*--- ERROR ---*"
+	 write-host "*"
 	 write-host "BANKVSAM region exists. Please DELETE."
+	 write-host "*"
+	 write-host "*-------------*"
+	 write-host "***************"
 	 exit 1
 	}
 	Catch
 	{
+	 write-host "**************"
+	 write-host "*--- INFO ---*"
+	 write-host "*"
 	 write-host "BANKVSAM region does NOT exists. Good to continue."
+	 write-host "*"
+	 write-host "*------------*"
+	 write-host "**************"
 	}
 	'''
     }
@@ -96,7 +114,13 @@ node {
 	  write-host "TEST PASSED"
 	  exit 0
 	}else{
+	  write-host "***************"
+	  write-host "*--- ERROR ---*"
+	  write-host "*"
 	  write-host "TEST FAILED"
+	  write-host "*"
+	  write-host "*--------------*"
+	  write-host "***************"
 	  exit 1
 	}
 	'''
