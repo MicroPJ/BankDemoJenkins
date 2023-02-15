@@ -9,6 +9,14 @@ node {
     stage('Download Config Files') {  
     	powershell '''
 	New-Item -Path build -ItemType directory
+	New-Item -Path test -ItemType directory
+	New-Item -Path test\\logs -ItemType directory
+	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system -ItemType directory
+	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog -ItemType directory
+	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data -ItemType directory
+	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib -ItemType directory
+	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs -ItemType directory
+	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef -ItemType directory
 	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/BANKVSAM.json -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json"
 	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/logon.json -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\logon.json"
 	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/TN3270.json -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\TN3270.json"
@@ -64,14 +72,6 @@ node {
     stage('Release') {
 	//Create System Release folder structure
 	powershell '''
-	New-Item -Path test -ItemType directory
-	New-Item -Path test\\logs -ItemType directory
-	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system -ItemType directory
-	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog -ItemType directory
-	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data -ItemType directory
-	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib -ItemType directory
-	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs -ItemType directory
-	New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef -ItemType directory
 	Copy-Item -Path "datafiles\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data"
 	Copy-Item -Path "executables\\Windows\\x64\\core\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
 	Copy-Item -Path "executables\\Windows\\x64\\data\\VSAM\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
