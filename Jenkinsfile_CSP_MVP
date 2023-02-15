@@ -107,14 +107,15 @@ node {
 	$env:responseCN = (Get-Content 'test\\logs\\status.json' | ConvertFrom-Json).CN
 	$env:responsemfError = (Get-Content 'test\\logs\\status.json' | ConvertFrom-Json).mfError
 	$env:responsemfServerStatus = (Get-Content 'test\\logs\\status.json' | ConvertFrom-Json).mfServerStatus
-	write-output "Region $env:responseCN is $env:responsemfError with status $env:responsemfServerStatus"
-	
+		
 	if ($env:responsemfError = 'OKAY')
 	{
 	  write-host "**************"
 	  write-host "*--- INFO ---*"
 	  write-host "*"
 	  write-host "* TEST PASSED"
+	  write-host "* Region $env:responseCN is $env:responsemfError with status $env:responsemfServerStatus"
+	  write-host "* $env:myJson"
 	  write-host "*"
 	  write-host "*------------*"
 	  exit 0
@@ -123,6 +124,7 @@ node {
 	  write-host "*--- ERROR ---*"
 	  write-host "*"
 	  write-host "* TEST FAILED"
+	  write-host "* $env:myJson"
 	  write-host "*"
 	  write-host "*--------------*"
 	  write-host "***************"
