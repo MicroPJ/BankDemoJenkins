@@ -75,10 +75,11 @@ node {
     stage('Release') {
 	//Create System Release folder structure
 	powershell '''
-	Copy-Item -Path "datafiles\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data"
-	Copy-Item -Path "executables\\Windows\\x64\\core\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
-	Copy-Item -Path "executables\\Windows\\x64\\data\\VSAM\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
-	Copy-Item -Path "executables\\Windows\\x64\\system\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
+	#Copy-Item -Path "datafiles\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data"
+	#Copy-Item -Path "executables\\Windows\\x64\\core\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
+	#Copy-Item -Path "executables\\Windows\\x64\\data\\VSAM\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
+	#Copy-Item -Path "executables\\Windows\\x64\\system\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
+	Copy-Item -Path "C:\\Asset_Repo\\BANKDEMO\\system\\loadlib\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
 	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/dfhdrdat -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\dfhdrdat"
 	Compress-Archive -Path "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system" -DestinationPath "build\\Release-$env:BUILD_TAG.zip"
 	'''
