@@ -67,7 +67,7 @@ node {
 
     stage('Build') {
     	powershell '''
-	cd C:\Users\mfisys1\source\repos\BankDemo\scripts
+	cd 'C:\\Users\\mfisys1\\source\\repos\\BankDemo\\scripts'
 	python MF_Ant_Build_Win_x64.py
 	'''
     }
