@@ -90,9 +90,9 @@ node {
 		#Copy-Item -Path "executables\\Windows\\x64\\system\\*" -Destination "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
 		#Copy-Item -Path "C:\\Asset_Repo\\BANKDEMO\\system\\loadlib\\*" -Destination "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
 		Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/dfhdrdat -OutFile "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\dfhdrdat"
-		Compress-Archive -Path "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system" -DestinationPath "Release-$env:BUILD_TAG.zip"
+		Compress-Archive -Path "Release-jenkins-CSP_MVP_Jenkinsfile\\system" -DestinationPath "Release-$env:BUILD_TAG.zip"
 		'''
-		archiveArtifacts artifacts: 'build/*.zip', fingerprint: true
+		archiveArtifacts artifacts: '*.zip', fingerprint: true
 	}
     }
      
