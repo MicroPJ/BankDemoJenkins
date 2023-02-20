@@ -9,11 +9,11 @@ node {
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
 	cleanWs()
-	dir('BankDemo') {
+	dir('GitHub\\BankDemo') {
 		git branch: "main",
 		url: 'https://github.com/MicroFocus/BankDemo.git'
 	}
-	dir('BankDemoJenkins') {
+	dir('GitHub\\BankDemoJenkins') {
 		git branch: "main",
 		url: 'https://github.com/MicroPJ/BankDemoJenkins.git'
 	}
@@ -41,7 +41,7 @@ node {
 	bat '''curl -X "DELETE" "http://127.0.0.1:10086/logoff" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With"'''
 
 	//Logon
-	bat '''curl -X POST "http://127.0.0.1:10086/logon" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@BankDemoJenkins\\config\\logon.json"'''
+	bat '''curl -X POST "http://127.0.0.1:10086/logon" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@GitHub\\BankDemoJenkins\\config\\logon.json"'''
 
 	powershell '''
 	New-Item -Path test -ItemType directory
@@ -73,7 +73,7 @@ node {
     }
 
     stage('Build') {
-        dir('BankDemoJenkins\\scripts\\build') {
+        dir('GitHub\\BankDemoJenkins\\scripts\\build') {
 		powershell '''
 		python MF_Ant_Build_Win_x64.py
 		'''
@@ -95,7 +95,7 @@ node {
     }
      
     stage('Deploy') {
-        dir('BankDemoJenkins\\config') {
+        dir('GitHub\\BankDemoJenkins\\config') {
 		//Logoff
 		bat '''curl -X "DELETE" "http://127.0.0.1:10086/logoff" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With"'''
 
