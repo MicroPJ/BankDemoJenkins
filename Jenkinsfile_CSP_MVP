@@ -29,10 +29,10 @@ node {
 		New-Item -Path Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib -ItemType directory
 		New-Item -Path Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs -ItemType directory
 		New-Item -Path Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef -ItemType directory
-		Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/BANKVSAM.json -OutFile "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json"
-		Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/logon.json -OutFile "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\logon.json"
-		Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/TN3270.json -OutFile "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\TN3270.json"
-		Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/start.json -OutFile "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\start.json"
+		#Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/BANKVSAM.json -OutFile "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json"
+		#Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/logon.json -OutFile "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\logon.json"
+		#Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/TN3270.json -OutFile "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\TN3270.json"
+		#Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/start.json -OutFile "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\start.json"
 		'''
 	}
     }
