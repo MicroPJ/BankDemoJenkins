@@ -55,7 +55,7 @@ def build_programs():
 
     #ant_home - this value should be set in ANT_HOME
     ant_exe = os.path.join(ant_home, 'bin', 'ant')
-
+ 
     #set source and asset repo locations
     cwd = os.getcwd()
     build_file = os.path.join(cwd, 'ant_Build_Win_x64.xml')
