@@ -83,7 +83,7 @@ node {
     stage('Release') {
 	//Create System Release folder structure
 	powershell '''
-	Copy-Item -Path "BankDemo\\datafiles\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data"
+	Copy-Item -Path "GitHub\\BankDemo\\datafiles\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data"
 	#Copy-Item -Path "executables\\Windows\\x64\\core\\*" -Destination "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
 	#Copy-Item -Path "executables\\Windows\\x64\\data\\VSAM\\*" -Destination "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
 	#Copy-Item -Path "executables\\Windows\\x64\\system\\*" -Destination "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
