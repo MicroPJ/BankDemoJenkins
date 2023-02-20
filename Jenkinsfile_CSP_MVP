@@ -21,10 +21,7 @@ node {
     }
 
     stage('Download Config Files') {  
-    	dir('BankDemo') {
-		powershell '''
-		New-Item -Path build -ItemType directory
-		New-Item -Path test -ItemType directory
+    	dir('build') {
 		New-Item -Path test\\logs -ItemType directory
 		New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system -ItemType directory
 		New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog -ItemType directory
@@ -84,76 +81,75 @@ node {
     }
 
     stage('Release') {
-        dir('BankDemo') {
+        dir('build') {
 		//Create System Release folder structure
 		powershell '''
-		Copy-Item -Path "datafiles\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data"
-		#Copy-Item -Path "executables\\Windows\\x64\\core\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
-		#Copy-Item -Path "executables\\Windows\\x64\\data\\VSAM\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
-		#Copy-Item -Path "executables\\Windows\\x64\\system\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
-		#Copy-Item -Path "C:\\Asset_Repo\\BANKDEMO\\system\\loadlib\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
-		Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/dfhdrdat -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\dfhdrdat"
-		Compress-Archive -Path "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system" -DestinationPath "build\\Release-$env:BUILD_TAG.zip"
+		Copy-Item -Path "datafiles\\*" -Destination "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data"
+		#Copy-Item -Path "executables\\Windows\\x64\\core\\*" -Destination "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
+		#Copy-Item -Path "executables\\Windows\\x64\\data\\VSAM\\*" -Destination "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
+		#Copy-Item -Path "executables\\Windows\\x64\\system\\*" -Destination "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
+		#Copy-Item -Path "C:\\Asset_Repo\\BANKDEMO\\system\\loadlib\\*" -Destination "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
+		Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/dfhdrdat -OutFile "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\dfhdrdat"
+		Compress-Archive -Path "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system" -DestinationPath "Release-$env:BUILD_TAG.zip"
 		'''
 		archiveArtifacts artifacts: 'build/*.zip', fingerprint: true
 	}
     }
      
     stage('Deploy') {
-        dir('BankDemo') {
+        dir('build') {
 		//Logoff
 		bat '''curl -X "DELETE" "http://127.0.0.1:10086/logoff" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With"'''
 
 		//Logon
-		bat '''curl -X POST "http://127.0.0.1:10086/logon" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\logon.json"'''
+		bat '''curl -X POST "http://127.0.0.1:10086/logon" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\logon.json"'''
 
 		//IMPORT JSON
-		bat '''curl -X POST "http://127.0.0.1:10086/native/v1/import/127.0.0.1/86" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json"'''
+		bat '''curl -X POST "http://127.0.0.1:10086/native/v1/import/127.0.0.1/86" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json"'''
 
 		//Update BANKVSAM region
 		//sleep 5
-		//bat '''curl -X PUT "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\TN3270.json"'''
+		//bat '''curl -X PUT "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\TN3270.json"'''
 
 		//Start BANKVSAM
 		sleep 5
-		bat '''curl -X POST "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/start" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\start.json"'''
+		bat '''curl -X POST "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/start" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\start.json"'''
 	}
     }
     
     stage('Test') {  
-    	dir('BankDemo') {
-		sleep 5
-		powershell '''
-		Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "test\\logs\\test_region_status.json" | ConvertFrom-Json  
-		$env:myJson = Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json
-		$env:responseCN = (Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json).CN
-		$env:responsemfError = (Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json).mfError
-		$env:responsemfServerStatus = (Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json).mfServerStatus
+	sleep 5
+	powershell '''
+	New-Item -Path test -ItemType directory
+	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "test\\logs\\test_region_status.json" | ConvertFrom-Json  
+	$env:myJson = Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json
+	$env:responseCN = (Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json).CN
+	$env:responsemfError = (Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json).mfError
+	$env:responsemfServerStatus = (Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json).mfServerStatus
 
-		if ($env:responsemfError = 'OKAY')
-		{
-		  write-host "**************"
-		  write-host "*--- INFO ---*"
-		  write-host "*"
-		  write-host "* TEST PASSED"
-		  write-host "* Region $env:responseCN is $env:responsemfError with status $env:responsemfServerStatus"
-		  write-host "* $env:myJson"
-		  write-host "*"
-		  write-host "*------------*"
-		  exit 0
-		}else{
-		  write-host "***************"
-		  write-host "*--- ERROR ---*"
-		  write-host "*"
-		  write-host "* TEST FAILED"
-		  write-host "* $env:myJson"
-		  write-host "*"
-		  write-host "*--------------*"
-		  write-host "***************"
-		  exit 1
-		}
-		'''
-		archiveArtifacts artifacts: 'test/logs/*.*', fingerprint: true	
+	if ($env:responsemfError = 'OKAY')
+	{
+	  write-host "**************"
+	  write-host "*--- INFO ---*"
+	  write-host "*"
+	  write-host "* TEST PASSED"
+	  write-host "* Region $env:responseCN is $env:responsemfError with status $env:responsemfServerStatus"
+	  write-host "* $env:myJson"
+	  write-host "*"
+	  write-host "*------------*"
+	  exit 0
+	}else{
+	  write-host "***************"
+	  write-host "*--- ERROR ---*"
+	  write-host "*"
+	  write-host "* TEST FAILED"
+	  write-host "* $env:myJson"
+	  write-host "*"
+	  write-host "*--------------*"
+	  write-host "***************"
+	  exit 1
 	}
+	'''
+	archiveArtifacts artifacts: 'test/logs/*.*', fingerprint: true	
     }
 }
