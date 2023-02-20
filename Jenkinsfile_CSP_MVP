@@ -8,13 +8,12 @@ node {
 
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
+	cleanWs()
 	dir('BankDemo') {
-		cleanWs()
 		git branch: "main",
 		url: 'https://github.com/MicroFocus/BankDemo.git'
 	}
 	dir('BankDemoJenkins') {
-		cleanWs()
 		git branch: "main",
 		url: 'https://github.com/MicroPJ/BankDemoJenkins.git'
 	}
