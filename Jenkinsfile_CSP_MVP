@@ -78,7 +78,6 @@ node {
     stage('Build') {
         dir('BankDemoJenkins\\scripts\\build') {
 		powershell '''
-		cd 'C:\\Users\\mfisys1\\source\\repos\\BankDemo\\scripts'
 		python MF_Ant_Build_Win_x64.py
 		'''
 	}
