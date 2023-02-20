@@ -22,6 +22,7 @@ node {
 
     stage('Download Config Files') {  
     	dir('build') {
+		powershell '''
 		New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system -ItemType directory
 		New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog -ItemType directory
 		New-Item -Path build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data -ItemType directory
