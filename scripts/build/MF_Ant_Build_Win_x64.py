@@ -59,7 +59,7 @@ def build_programs():
     #set source and asset repo locations
     cwd = os.getcwd()
     build_file = os.path.join(cwd, 'ant_Build_Win_x64.xml')
-    source_dir = 'C:\ProgramData\Jenkins\.jenkins\workspace\CSP_MVP_Jenkinsfile\sources'
+    source_dir = 'C:\ProgramData\Jenkins\.jenkins\workspace\CSP_MVP_Pipeline\BankDemo\sources'
     # This may a better location rather than asset_repo: everything in one place - may need change to Jenkinsfile to create loadlib dir?
     #loadlib_dir = 'C:\ProgramData\Jenkins\.jenkins\workspace\CSP_MVP_Jenkinsfile\loadlib'
     asset_repo = 'C:\Asset_Repo\BANKDEMO\system\loadlib'
