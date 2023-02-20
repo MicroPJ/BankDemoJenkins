@@ -61,8 +61,8 @@ def build_programs():
     build_file = os.path.join(cwd, 'ant_Build_Win_x64.xml')
     source_dir = 'C:\ProgramData\Jenkins\.jenkins\workspace\CSP_MVP_Pipeline\BankDemo\sources'
     # This may a better location rather than asset_repo: everything in one place - may need change to Jenkinsfile to create loadlib dir?
-    #asset_repo = 'C:\ProgramData\Jenkins\.jenkins\workspace\CSP_MVP_Pipeline\build\Release-jenkins-CSP_MVP_Jenkinsfile\system\loadlib'
-    asset_repo = 'C:\Asset_Repo\BANKDEMO\system\loadlib'
+    asset_repo = 'C:\ProgramData\Jenkins\.jenkins\workspace\CSP_MVP_Pipeline\build\Release-jenkins-CSP_MVP_Jenkinsfile\system\loadlib'
+    #asset_repo = 'C:\Asset_Repo\BANKDEMO\system\loadlib'
 
     #execute ant
     ant_cmd = [ant_exe, '-lib', mfant_jar, '-f', build_file, '-Dbasedir', source_dir, '-Dloaddir', asset_repo, '-Ddataversion', dataversion, '-D64bitset', set64bit]
