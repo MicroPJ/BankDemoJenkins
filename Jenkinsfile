@@ -40,12 +40,12 @@ node {
 	bat '''curl -X POST "http://127.0.0.1:10086/logon" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@GitHub\\BankDemoJenkins\\config\\logon.json"'''
 
 	powershell '''
-	New-Item -Path Test_results -ItemType directory
-	New-Item -Path Test_results\\logs -ItemType directory
+	New-Item -Path Test -ItemType directory
+	New-Item -Path Test\\logs -ItemType directory
 	Try
 	{
 
-	 Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "Test_results\\logs\\status.json" | ConvertFrom-Json 
+	 Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "Test\\logs\\status.json" | ConvertFrom-Json 
 	 write-host "***************"
 	 write-host "*--- ERROR ---*"
 	 write-host "*"
@@ -110,7 +110,7 @@ node {
     stage('Test') {  
 	sleep 5
 	powershell '''
-	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "Test_results\\logs\\test_region_status.json" | ConvertFrom-Json  
+	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "Test\\logs\\test_region_status.json" | ConvertFrom-Json  
 	$env:myJson = Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json
 	$env:responseCN = (Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json).CN
 	$env:responsemfError = (Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json).mfError
@@ -139,6 +139,6 @@ node {
 	  exit 1
 	}
 	'''
-	archiveArtifacts artifacts: 'Test_results/logs/*.*', fingerprint: true	
+	archiveArtifacts artifacts: 'Test/logs/*.*', fingerprint: true	
     }
 }
