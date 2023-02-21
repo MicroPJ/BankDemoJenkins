@@ -22,12 +22,12 @@ node {
     stage('Create release folder structure') {  
     	dir('Release') {
 		powershell '''
-		New-Item -Path Release-jenkins-CSP_MVP_Jenkinsfile\\system -ItemType directory
-		New-Item -Path Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog -ItemType directory
-		New-Item -Path Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data -ItemType directory
-		New-Item -Path Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib -ItemType directory
-		New-Item -Path Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs -ItemType directory
-		New-Item -Path Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef -ItemType directory
+		New-Item -Path CSP_MVP_Pipeline_Release\\system -ItemType directory
+		New-Item -Path CSP_MVP_Pipeline_Release\\system\\catalog -ItemType directory
+		New-Item -Path CSP_MVP_Pipeline_Release\\system\\catalog\\data -ItemType directory
+		New-Item -Path CSP_MVP_Pipeline_Release\\system\\loadlib -ItemType directory
+		New-Item -Path CSP_MVP_Pipeline_Release\\system\\logs -ItemType directory
+		New-Item -Path CSP_MVP_Pipeline_Release\\system\\rdef -ItemType directory
 		'''
 	}
     }
@@ -79,9 +79,9 @@ node {
     stage('Release') {
 	//Create System Release folder structure
 	powershell '''
-	Copy-Item -Path "GitHub\\BankDemo\\datafiles\\*" -Destination "Release\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data"
-	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/dfhdrdat -OutFile "Release\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\dfhdrdat"
-	Compress-Archive -Path "Release\\Release-jenkins-CSP_MVP_Jenkinsfile\\system" -DestinationPath "Release-$env:BUILD_TAG.zip"
+	Copy-Item -Path "GitHub\\BankDemo\\datafiles\\*" -Destination "Release\\CSP_MVP_Pipeline_Release\\system\\catalog\\data"
+	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/dfhdrdat -OutFile "Release\\CSP_MVP_Pipeline_Release\\system\\rdef\\dfhdrdat"
+	Compress-Archive -Path "Release\\CSP_MVP_Pipeline_Release\\system" -DestinationPath "Release\\Release-$env:BUILD_TAG.zip"
 	'''
 	archiveArtifacts artifacts: '*.zip', fingerprint: true
     }
