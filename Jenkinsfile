@@ -80,10 +80,12 @@ node {
 	//Create System Release folder structure
 	powershell '''
 	Copy-Item -Path "GitHub\\BankDemo\\datafiles\\*" -Destination "Release\\CSP_MVP_Pipeline_Release\\system\\catalog\\data"
-	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/dfhdrdat -OutFile "Release\\CSP_MVP_Pipeline_Release\\system\\rdef\\dfhdrdat"
+	Copy-Item -Path "GitHub\\BankDemoJenkins\\config\\dfhdrdat" -Destination "Release\\CSP_MVP_Pipeline_Release\\system\\rdef\\dfhdrdat"
 	Compress-Archive -Path "Release\\CSP_MVP_Pipeline_Release\\system" -DestinationPath "Release\\Release-$env:BUILD_TAG.zip"
 	'''
-	archiveArtifacts artifacts: '*.zip', fingerprint: true
+	dir ('Release'){
+		archiveArtifacts artifacts: '*.zip', fingerprint: true
+	}
     }
      
     stage('Deploy') {
@@ -96,10 +98,6 @@ node {
 
 		//IMPORT JSON
 		bat '''curl -X POST "http://127.0.0.1:10086/native/v1/import/127.0.0.1/86" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@BANKVSAM.json"'''
-
-		//Update BANKVSAM region
-		//sleep 5
-		//bat '''curl -X PUT "http://localhost:10086/native/v1/regions/127.0.0.1/86/BANKVSAM" -H "Cache-Control: no-cache" -H "Origin:http://localhost:86" -H "Host:localhost:86" -H "accept: application/json" -H "X-Requested-With: X-Requested-With" -H "Content-Type: application/json" -d "@TN3270.json"'''
 
 		//Start BANKVSAM
 		sleep 5
