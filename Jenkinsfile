@@ -10,7 +10,7 @@ node {
         /* Let's make sure we have the repository cloned to our workspace */
 	cleanWs()
 	dir('GitHub\\BankDemo') {
-		git branch: "main",
+		git branch: "v8.0",
 		url: 'https://github.com/MicroFocus/BankDemo.git'
 	}
 	dir('GitHub\\BankDemoJenkins') {
