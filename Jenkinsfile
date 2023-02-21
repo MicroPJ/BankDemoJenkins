@@ -81,7 +81,7 @@ node {
 	powershell '''
 	Copy-Item -Path "GitHub\\BankDemo\\datafiles\\*" -Destination "Release\\CSP_MVP_Pipeline_Release\\system\\catalog\\data"
 	Copy-Item -Path "GitHub\\BankDemoJenkins\\config\\dfhdrdat" -Destination "Release\\CSP_MVP_Pipeline_Release\\system\\rdef\\dfhdrdat"
-	Compress-Archive -Path "Release\\CSP_MVP_Pipeline_Release\\system" -DestinationPath "Release\\$env:BUILD_TAG_Release.zip"
+	Compress-Archive -Path "Release\\CSP_MVP_Pipeline_Release\\system" -DestinationPath "Release\\CSP_MVP_Pipeline_Release_$env:BUILD_ID.zip"
 	'''
 	dir ('Release'){
 		archiveArtifacts artifacts: '*.zip', fingerprint: true
