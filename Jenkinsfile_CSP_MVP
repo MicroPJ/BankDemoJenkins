@@ -19,7 +19,7 @@ node {
 	}
     }
 
-    stage('Download Config Files') {  
+    stage('Create release folder structure') {  
     	dir('build') {
 		powershell '''
 		New-Item -Path Release-jenkins-CSP_MVP_Jenkinsfile\\system -ItemType directory
@@ -28,10 +28,6 @@ node {
 		New-Item -Path Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib -ItemType directory
 		New-Item -Path Release-jenkins-CSP_MVP_Jenkinsfile\\system\\logs -ItemType directory
 		New-Item -Path Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef -ItemType directory
-		#Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/BANKVSAM.json -OutFile "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\BANKVSAM.json"
-		#Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/logon.json -OutFile "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\logon.json"
-		#Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/TN3270.json -OutFile "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\TN3270.json"
-		#Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/start.json -OutFile "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\start.json"
 		'''
 	}
     }
@@ -84,10 +80,6 @@ node {
 	//Create System Release folder structure
 	powershell '''
 	Copy-Item -Path "GitHub\\BankDemo\\datafiles\\*" -Destination "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\catalog\\data"
-	#Copy-Item -Path "executables\\Windows\\x64\\core\\*" -Destination "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
-	#Copy-Item -Path "executables\\Windows\\x64\\data\\VSAM\\*" -Destination "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
-	#Copy-Item -Path "executables\\Windows\\x64\\system\\*" -Destination "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
-	#Copy-Item -Path "C:\\Asset_Repo\\BANKDEMO\\system\\loadlib\\*" -Destination "Release-jenkins-CSP_MVP_Jenkinsfile\\system\\loadlib"
 	Invoke-WebRequest -Headers @{"Cache-Control"="no-cache"} https://raw.githubusercontent.com/MicroPJ/BankDemoJenkins/main/config/dfhdrdat -OutFile "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\\rdef\\dfhdrdat"
 	Compress-Archive -Path "build\\Release-jenkins-CSP_MVP_Jenkinsfile\\system" -DestinationPath "Release-$env:BUILD_TAG.zip"
 	'''
@@ -118,7 +110,6 @@ node {
     stage('Test') {  
 	sleep 5
 	powershell '''
-	#New-Item -Path test -ItemType directory
 	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "test\\logs\\test_region_status.json" | ConvertFrom-Json  
 	$env:myJson = Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json
 	$env:responseCN = (Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json).CN
