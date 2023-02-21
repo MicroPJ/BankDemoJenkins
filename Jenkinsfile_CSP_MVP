@@ -139,6 +139,6 @@ node {
 	  exit 1
 	}
 	'''
-	archiveArtifacts artifacts: 'test/logs/*.*', fingerprint: true	
+	archiveArtifacts artifacts: 'Test_results/logs/*.*', fingerprint: true	
     }
 }
