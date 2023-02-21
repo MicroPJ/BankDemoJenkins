@@ -9,7 +9,7 @@
             "description": "Test Region",
             "mfError": "",
             "mfStatusHistory": "",
-            "mfConfig": "[ES-Environment]\nESP=C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\CSP_MVP_Pipeline\\Release\\Release-jenkins-CSP_MVP_Jenkinsfile\\system\nMFJ_RELOAD_IEASYM00=Y\nMF_CHARSET=A\nCASRDO44_NEWSUB=N\nEXTFH=$ESP/config/EXTFH.cfg",
+            "mfConfig": "[ES-Environment]\nESP=C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\CSP_MVP_Pipeline\\Release\\CSP_MVP_Pipeline_Release\\system\nMFJ_RELOAD_IEASYM00=Y\nMF_CHARSET=A\nCASRDO44_NEWSUB=N\nEXTFH=$ESP/config/EXTFH.cfg",
             "mfMajorVersion": 0,
             "mfMinorVersion": 0,
             "mfBuildVersion": 0,
