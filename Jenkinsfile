@@ -73,7 +73,7 @@ node {
 		powershell '''
 		python MF_Ant_Build_Win_x64.py
 		'''
-		archiveArtifacts artifacts: 'build.log', fingerprint: true
+		archiveArtifacts artifacts: 'build.txt', fingerprint: true
 	}
     }
 
