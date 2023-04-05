@@ -149,12 +149,10 @@ node {
 		    test_results = 'position 1'
 		    try {
 			test_results = bat (
-			    script: "python main.py",
-			    returnStdout: true
+			    script: "python main.py"
 			)
-			echo "Test results in passed test: ${test_results}"
+			echo "Test results passed: ${test_results}"
 		    } catch (err) {
-			output = readFile(file: 'output')
 			echo "Test results failed: ${test_results}"
 			echo err.getMessage()
 			println err.dump()
