@@ -145,16 +145,32 @@ node {
 	System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
         dir('C:\\Users\\mfisys1\\Documents\\_py3270') {
 		bat '''del *.html'''	
-		try {
-			bat '''python main.py'''
-			IF NOT %ERRORLEVEL% == 0 ( 
-                            echo "ABORT: " %ERRORLEVEL%
-                            exit /b %ERRORLEVEL%
-                        )
-		} catch (err) {
+		script {
+		    test_results = 'position 1'
+		    try {
+			test_results = sh (
+			    script: "python3 main.py notpass > output",
+			    returnStdout: true
+			)
+			echo "Test results in passed test: ${test_results}"
+		    } catch (err) {
+			output = readFile(file: 'output')
+			echo "Test results in failed test numb 1: " + output
+			echo "Test results in failed test numb 2: ${test_results}"
 			echo err.getMessage()
-                	println err.dump()
+			println err.dump()
+		    }
 		}
+		//try {
+		//	bat '''python main.py'''
+		//	IF NOT %ERRORLEVEL% == 0 ( 
+                //            echo "ABORT: " %ERRORLEVEL%
+                //            exit /b %ERRORLEVEL%
+                //        )
+		//} catch (err) {
+		//	echo err.getMessage()
+                //	println err.dump()
+		//}
 		archiveArtifacts artifacts: '*.html', fingerprint: true
 	}
     }
