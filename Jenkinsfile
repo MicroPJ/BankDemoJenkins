@@ -144,6 +144,7 @@ node {
     stage('App Test') {
 	System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
         dir('C:\\Users\\mfisys1\\Documents\\_py3270') {
+		bat '''del *.html'''
 		bat '''python main.py'''
 		archiveArtifacts artifacts: '*.html', fingerprint: true
 	}
