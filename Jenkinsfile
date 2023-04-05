@@ -148,7 +148,7 @@ node {
 		script {
 		    def exitCode = bat script: "python main.py", returnStatus: true
                     if (exitCode != 0) {
-                        exit exitCode
+                        throw new Exception('Something went wrong!')
                     }
 		}
 		archiveArtifacts artifacts: '*.html', fingerprint: true
