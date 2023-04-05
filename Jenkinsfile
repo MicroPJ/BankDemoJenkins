@@ -146,14 +146,10 @@ node {
         dir('C:\\Users\\mfisys1\\Documents\\_py3270') {
 		bat '''del *.html'''	
 		script {
-		    try {
-			def test_results = bat (
-			    script: "python main.py", returnStatus: true
-			)
-			echo "Test results passed"
-		    } catch (err) {
-			echo "Test results failed"
-		    }
+		    def exitCode = cmd script: "python main.py", returnStatus: true
+                    if (exitCode != 0) {
+                        raise Exception("Script failed because of bla bla bla")
+                    }
 		}
 		archiveArtifacts artifacts: '*.html', fingerprint: true
 	}
