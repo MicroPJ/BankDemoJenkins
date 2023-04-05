@@ -106,7 +106,7 @@ node {
 	}
     }
     
-    stage('Test') {  
+    stage('Region Test') {  
 	sleep 5
 	powershell '''
 	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "Test\\logs\\test_region_status.json" | ConvertFrom-Json  
@@ -139,5 +139,11 @@ node {
 	}
 	'''
 	archiveArtifacts artifacts: 'Test/logs/*.*', fingerprint: true	
+    }
+    
+    stage('App Test') {
+        dir('C:\\Users\\mfisys1\\Documents\\_py3270') {
+		bat '''python main.py'''
+	}
     }
 }
