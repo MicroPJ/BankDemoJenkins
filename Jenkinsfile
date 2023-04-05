@@ -143,7 +143,7 @@ node {
     
     stage('App Test') {
 	System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
-        dir('C:\\Users\\mfisys1\\Documents\\_py3270') {
+        dir('GitHub\\BankDemoJenkins\\scripts\\test') {
 		bat '''del *.html'''	
 		script {
 		    def exitCode = bat script: "python main.py", returnStatus: true
