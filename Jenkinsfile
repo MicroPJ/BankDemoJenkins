@@ -149,14 +149,13 @@ node {
 		    test_results = 'position 1'
 		    try {
 			test_results = sh (
-			    script: "python3 main.py > output",
+			    script: "python main.py",
 			    returnStdout: true
 			)
 			echo "Test results in passed test: ${test_results}"
 		    } catch (err) {
 			output = readFile(file: 'output')
-			echo "Test results in failed test numb 1: " + output
-			echo "Test results in failed test numb 2: ${test_results}"
+			echo "Test results failed: ${test_results}"
 			echo err.getMessage()
 			println err.dump()
 		    }
