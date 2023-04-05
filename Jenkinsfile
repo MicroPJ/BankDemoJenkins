@@ -154,8 +154,10 @@ node {
 			echo "Test results passed"
 		    } catch (err) {
 			echo "Test results failed"
-			echo err.getMessage()
-			println err.dump()
+			IF NOT %ERRORLEVEL% == 0 ( 
+                            echo "ABORT: " %ERRORLEVEL%
+                            exit /b %ERRORLEVEL%
+                        )
 		    }
 		}
 		//try {
