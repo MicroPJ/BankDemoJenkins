@@ -149,7 +149,7 @@ node {
 		    test_results = 'position 1'
 		    try {
 			test_results = sh (
-			    script: "python3 main.py notpass > output",
+			    script: "python3 main.py > output",
 			    returnStdout: true
 			)
 			echo "Test results in passed test: ${test_results}"
