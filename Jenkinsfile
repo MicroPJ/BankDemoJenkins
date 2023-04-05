@@ -145,12 +145,12 @@ node {
 	System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
         dir('C:\\Users\\mfisys1\\Documents\\_py3270') {
 		bat '''del *.html'''
-		try {
+		#try {
 			bat '''python main.py'''
-		} catch (err) {
-			echo err.getMessage()
-                	println err.dump()
-		}
+		#} catch (err) {
+		#	echo err.getMessage()
+                #	println err.dump()
+		#}
 		archiveArtifacts artifacts: '*.html', fingerprint: true
 	}
     }
