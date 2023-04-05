@@ -110,10 +110,10 @@ node {
 	sleep 5
 	powershell '''
 	Invoke-WebRequest -Headers @{"X-Requested-With"="X-Requested-With";"Origin"="http://localhost:86";"Host"="localhost:86";"accept"="application/json";} http://127.0.0.1:10086/native/v1/regions/127.0.0.1/86/BANKVSAM/status -OutFile "Test\\logs\\ES_Region_Status_Test_Results.json" | ConvertFrom-Json  
-	$env:myJson = Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json
-	$env:responseCN = (Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json).CN
-	$env:responsemfError = (Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json).mfError
-	$env:responsemfServerStatus = (Get-Content 'test\\logs\\test_region_status.json' | ConvertFrom-Json).mfServerStatus
+	$env:myJson = Get-Content 'test\\logs\\ES_Region_Status_Test_Results.json' | ConvertFrom-Json
+	$env:responseCN = (Get-Content 'test\\logs\\ES_Region_Status_Test_Results.json' | ConvertFrom-Json).CN
+	$env:responsemfError = (Get-Content 'test\\logs\\ES_Region_Status_Test_Results.json' | ConvertFrom-Json).mfError
+	$env:responsemfServerStatus = (Get-Content 'test\\logs\\ES_Region_Status_Test_Results.json' | ConvertFrom-Json).mfServerStatus
 
 	if ($env:responsemfError = 'OKAY')
 	{
@@ -144,29 +144,17 @@ node {
     stage('App Test') {
 	System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
         dir('C:\\Users\\mfisys1\\Documents\\_py3270') {
-		bat '''del *.html'''
-		
+		bat '''del *.html'''	
 		try {
-                        errorCode = bat( label: '', returnStdout: true, script: """
-                        python main.py 
-                           
-                        IF NOT %ERRORLEVEL% == 0 ( 
+			bat '''python main.py'''
+			IF NOT %ERRORLEVEL% == 0 ( 
                             echo "ABORT: " %ERRORLEVEL%
                             exit /b %ERRORLEVEL%
-                          )
-                        """)
-                } 
-		catch (e)
-		{
-                        error("Tests didn't finish successfully: ${e}")
-                }
-		
-		//try {
-		//	bat '''python main.py'''
-		//} catch (err) {
-		//	echo err.getMessage()
-               // 	println err.dump()
-		//}
+                        )
+		} catch (err) {
+			echo err.getMessage()
+                	println err.dump()
+		}
 		archiveArtifacts artifacts: '*.html', fingerprint: true
 	}
     }
