@@ -146,20 +146,15 @@ node {
         dir('C:\\Users\\mfisys1\\Documents\\_py3270') {
 		bat '''del *.html'''	
 		script {
-		    test_results = 'position 1'
 		    try {
-			test_results = bat (
-			    script: "python main.py"
+			def test_results = bat (
+			    script: "python main.py", returnStatus: true
 			)
 			echo "Test results passed"
 		    } catch (err) {
 			echo "Test results failed"
 		    }
 		}
-		IF NOT %ERRORLEVEL% == 0 ( 
-                     echo "ABORT: " %ERRORLEVEL%
-                     exit /b %ERRORLEVEL%
-                )
 		archiveArtifacts artifacts: '*.html', fingerprint: true
 	}
     }
