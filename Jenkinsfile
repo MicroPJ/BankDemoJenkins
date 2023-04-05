@@ -148,7 +148,7 @@ node {
 		script {
 		    test_results = 'position 1'
 		    try {
-			test_results = sh (
+			test_results = bat (
 			    script: "python main.py",
 			    returnStdout: true
 			)
