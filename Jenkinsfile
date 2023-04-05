@@ -146,7 +146,7 @@ node {
         dir('C:\\Users\\mfisys1\\Documents\\_py3270') {
 		bat '''del *.html'''	
 		script {
-		    def exitCode = cmd script: "python main.py", returnStatus: true
+		    def exitCode = bat script: "python main.py", returnStatus: true
                     if (exitCode != 0) {
                         raise Exception("Script failed because of bla bla bla")
                     }
