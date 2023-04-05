@@ -151,9 +151,9 @@ node {
 			test_results = bat (
 			    script: "python main.py"
 			)
-			echo "Test results passed: ${test_results}"
+			echo "Test results passed"
 		    } catch (err) {
-			echo "Test results failed: ${test_results}"
+			echo "Test results failed"
 			echo err.getMessage()
 			println err.dump()
 		    }
