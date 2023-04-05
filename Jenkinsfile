@@ -144,6 +144,7 @@ node {
     stage('App Test') {
         dir('C:\\Users\\mfisys1\\Documents\\_py3270') {
 		bat '''python main.py'''
+		archiveArtifacts artifacts: '*.html', fingerprint: true
 	}
     }
 }
