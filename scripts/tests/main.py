@@ -36,7 +36,7 @@ try:
 	my3270.send_enter()
 	time.sleep(delayt)
 	print("[TEST #1] my3270.string_found(1,2,'Scrn: BANK20')")
-	if not my3270.string_found(1,2,'Scrn: BANK20'):
+	if not my3270.string_found(1,2,'zScrn: BANK20'):
 		sys.exit('Error: '+ print(my3270.string_get(1,2,20)))
 	print("[TEST #2] PASSED")
 	my3270.save_screen(filename)
