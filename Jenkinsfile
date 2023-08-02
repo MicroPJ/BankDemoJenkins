@@ -157,15 +157,15 @@ node {
     stage('Start x3270_api') {
 	//System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
         dir('GitHub\\BankDemoJenkins\\x3270_api') {
-		powershell '''
-			Start-Process "./x3270_api -host 127.0.0.1 -port 5001 -pythonfile main.py" -WindowStyle Hidden
-			//script {
-			//    def exitCode = bat script: "x3270_api -host 127.0.0.1 -port 5001 -pythonfile main.py", returnStatus: true
-	                //    if (exitCode != 0) {
-	                //        throw new Exception('Something went wrong!')
-	                //    }
-			//}
-	  	'''
+		//powershell '''
+			//Start-Process "./x3270_api -host 127.0.0.1 -port 5001 -pythonfile main.py" -WindowStyle Hidden
+		script {
+		    def exitCode = bat script: "START /B CMD /C CALL x3270_api -host 127.0.0.1 -port 5001 -pythonfile main.py", returnStatus: true
+	            if (exitCode != 0) {
+	                throw new Exception('Something went wrong!')
+	            }
+		}
+	  	//'''
 		}
     }	
     stage('Run Volume Test') {
