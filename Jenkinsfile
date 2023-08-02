@@ -154,7 +154,7 @@ node {
 		archiveArtifacts artifacts: '*.html', fingerprint: true
 		}
     }
-    stage('Start x3270_api') {
+    /*stage('Start x3270_api') {
 	//System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
         dir('GitHub\\BankDemoJenkins\\x3270_api') {
 		//powershell '''
@@ -167,7 +167,7 @@ node {
 		}
 	  	//'''
 		}
-    }	
+    }*/	
     stage('Volume Test') {
 	//System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
         dir('GitHub\\BankDemoJenkins\\x3270_api') {
