@@ -168,7 +168,7 @@ node {
 	  	//'''
 		}
     }	
-    stage('Run Volume Test') {
+    stage('Volume Test') {
 	//System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
         dir('GitHub\\BankDemoJenkins\\x3270_api') {
 		bat '''del *.html'''	
