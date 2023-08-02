@@ -14,7 +14,7 @@ node {
 		url: 'https://github.com/MicroFocus/BankDemo.git'
 	}
 	dir('GitHub\\BankDemoJenkins') {
-		git branch: "main",
+		git branch: "dev",
 		url: 'https://github.com/MicroPJ/BankDemoJenkins.git'
 	}
     }
