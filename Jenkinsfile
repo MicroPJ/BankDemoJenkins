@@ -142,11 +142,24 @@ node {
     }
     
     stage('App Test') {
-	System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
+	//System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
         dir('GitHub\\BankDemoJenkins\\scripts\\tests') {
 		bat '''del *.html'''	
 		script {
 		    def exitCode = bat script: "python main.py", returnStatus: true
+                    if (exitCode != 0) {
+                        throw new Exception('Something went wrong!')
+                    }
+		}
+		archiveArtifacts artifacts: '*.html', fingerprint: true
+	}
+    }
+    stage('Run Volume Test') {
+	//System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
+        dir('GitHub\\BankDemoJenkins\\x3270_api') {
+		bat '''del *.html'''	
+		script {
+		    def exitCode = bat script: "locust --headless --run-time 1m --stop-timeout 10s -u 100 -r 5 --host http://127.0.0.1:3270 --html VolumeTest.html --only-summary", returnStatus: true
                     if (exitCode != 0) {
                         throw new Exception('Something went wrong!')
                     }
