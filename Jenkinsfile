@@ -14,7 +14,7 @@ node {
 		url: 'https://github.com/MicroFocus/BankDemo.git'
 	}
 	dir('GitHub\\BankDemoJenkins') {
-		git branch: "main",
+		git branch: "dev",
 		url: 'https://github.com/MicroPJ/BankDemoJenkins.git'
 	}
     }
@@ -142,7 +142,7 @@ node {
     }
     
     stage('App Test') {
-	System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
+	//System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
         dir('GitHub\\BankDemoJenkins\\scripts\\tests') {
 		bat '''del *.html'''	
 		script {
@@ -152,6 +152,33 @@ node {
                     }
 		}
 		archiveArtifacts artifacts: '*.html', fingerprint: true
-	}
+		}
+    }
+    /*stage('Start x3270_api') {
+	//System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
+        dir('GitHub\\BankDemoJenkins\\x3270_api') {
+		//powershell '''
+			//Start-Process "./x3270_api -host 127.0.0.1 -port 5001 -pythonfile main.py" -WindowStyle Hidden
+		script {
+		    def exitCode = bat script: "START /B CMD /C CALL x3270_api -host 127.0.0.1 -port 5001 -pythonfile main.py", returnStatus: true
+	            if (exitCode != 0) {
+	                throw new Exception('Something went wrong!')
+	            }
+		}
+	  	//'''
+		}
+    }*/	
+    stage('Volume Test') {
+	//System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
+        dir('GitHub\\BankDemoJenkins\\x3270_api') {
+		bat '''del *.html'''	
+		script {
+		    def exitCode = bat script: "locust --headless --run-time 1m --stop-timeout 10s -u 100 -r 5 --host http://127.0.0.1:3270 --html VolumeTest.html --only-summary", returnStatus: true
+                    if (exitCode != 0) {
+                        throw new Exception('Something went wrong!')
+                    }
+		}
+		archiveArtifacts artifacts: '*.html', fingerprint: true
+		}
     }
 }
